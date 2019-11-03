@@ -1,6 +1,6 @@
-# Checks the syntax of the services.yml file in extensions prior to phpBB 3.3.
+# Extension services.yml file check extension for phpBB
 
-Adds a link to a credits page showing extension credits.
+Checks the syntax of the services.yml file in extensions prior to phpBB 3.3.
 
 [![Build Status](https://travis-ci.com/david63/extservicescheck.svg?branch=master)](https://travis-ci.com/david63/extservicescheck)
 [![License](https://poser.pugx.org/david63/extservicescheck/license)](https://packagist.org/packages/david63/extservicescheck)
