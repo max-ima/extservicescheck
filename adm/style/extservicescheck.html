@@ -1,0 +1,21 @@
+{% include '@' ~ NAMESPACE ~ '/head_panel.html' %}
+
+	<div class="table">
+		<div class="table-header">
+			<div class="table-header-cell-left">{{ lang('EXTENSION_NAME') }}</div>
+			<div class="table-header-cell-narrow">{{ lang('VERSION') }}</div>
+			<div class="table-header-cell-right">{{ lang('STATUS') }}</div>
+		</div>
+
+		<div class="table-body">
+			{% for row in ext_row %}
+				{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
+					<div class="table-body-cell-bold">{{ row.DISPLAY_NAME }}</div>
+					<div class="table-body-cell-narrow">{{ row.VERSION }}</div>
+					<div class="table-body-cell">{{ row.STATUS }}</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+{% include '@' ~ NAMESPACE ~ '/donate.html' %}

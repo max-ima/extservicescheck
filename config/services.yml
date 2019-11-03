@@ -1,0 +1,19 @@
+imports:
+    - { resource: phpbb_tables.yml }
+
+services:
+    david63.extservicescheck.admin.controller:
+        class: david63\extservicescheck\controller\admin_controller
+        arguments:
+            - '@template'
+            - '@language'
+            - '@david63.extservicescheck.core.functions'
+            - '%core.root_path%'
+
+    david63.extservicescheck.core.functions:
+        class: david63\extservicescheck\core\functions
+        arguments:
+            - '@dbal.conn'
+            - '@ext.manager'
+            - '%tables%'
+            - '@language'
