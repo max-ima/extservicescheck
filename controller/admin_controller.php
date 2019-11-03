@@ -64,7 +64,8 @@ class admin_controller implements admin_interface
 		// Display the extensions
 		foreach ($enabled_extension_meta_data as $name => $block_vars)
 		{
-			$services_file = $this->phpbb_root_path . 'ext/' . $block_vars['META_NAME'] . '/config/services.yml';
+			$services_file	= $this->phpbb_root_path . 'ext/' . $block_vars['META_NAME'] . '/config/services.yml';
+			$routing_file	= $this->phpbb_root_path . 'ext/' . $block_vars['META_NAME'] . '/config/routing.yml';
 
 			if (!file_exists($services_file))
 			{
@@ -77,7 +78,15 @@ class admin_controller implements admin_interface
 			else
 			{
 				$status = $this->language->lang('SERVICES_FILE_PASS');
+				if (file_exists($routing_file))
+				{
+					if (strstr(file_get_contents($routing_file), 'pattern:'))
+					{
+						$status = $this->language->lang('ROUTING_FILE_FAIL');
+					}
+				}
 			}
+
 
 			$this->template->assign_block_vars('ext_row', array(
 				'DISPLAY_NAME'	=> $block_vars['META_DISPLAY_NAME'],

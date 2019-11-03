@@ -45,6 +45,8 @@ $lang = array_merge($lang, array(
 	'NEW_VERSION_EXPLAIN'			=> 'There is a newer version of this extension available.',
 	'NO_SERVICES_FILE'				=> 'This extension does not use a <em>services.yml</em> file',
 
+	'ROUTING_FILE_FAIL'				=> '<strong>»» The <em>routing.yml</em> file is incompatible</strong>',
+
 	'SERVICES_FILE_FAIL'			=> '<strong>»» The <em>services.yml</em> file is incompatible</strong>',
 	'SERVICES_FILE_PASS'			=> 'The <em>services.yml</em> file is compatible',
 	'STATUS'						=> 'Status',
