@@ -9,43 +9,26 @@
 
 namespace david63\extservicescheck\core;
 
-use phpbb\db\driver\driver_interface;
 use phpbb\extension\manager;
-use phpbb\language\language;
 
 /**
 * functions
 */
 class functions
 {
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
 	/** @var \phpbb\extension\manager */
 	protected $phpbb_extension_manager;
-
-	/** @var string custom tables */
-	protected $tables;
-
-	/** @var \phpbb\language\language */
-	protected $language;
 
 	/**
 	* Constructor for 33extcheck
 	*
-	* @param \phpbb_db_driver				$db							The db connection
 	* @param \phpbb\extension\manager		$phpbb_extension_manager	Extension manager
-	* @param array							$tables						phpBB db tables
-	* @param \phpbb\language\language		$language					Language object
 	*
 	* @access public
 	*/
-	public function __construct(driver_interface $db, manager $phpbb_extension_manager, $tables, language $language)
+	public function __construct(manager $phpbb_extension_manager)
 	{
-		$this->db			= $db;
 		$this->ext_manager	= $phpbb_extension_manager;
-		$this->tables		= $tables;
-		$this->language		= $language;
 
 		$this->namespace	= __NAMESPACE__;
 	}
@@ -122,19 +105,11 @@ class functions
 
 			$enabled_extension_meta_data[$name] = array(
 				'META_DISPLAY_NAME'	=> $meta_data['extra']['display-name'],
-				'META_NAME'			=> $meta_data['name'],
+				'META_NAME'			=> $location,
 				'META_VERSION' 		=> $meta_data['version'],
 			);
 		}
 
 		return $enabled_extension_meta_data;
-	}
-
-	/**
-	* Sort helper for the table containing the metadata about the extensions.
-	*/
-	public function sort_extension_meta_data_table($val1, $val2)
-	{
-		return strnatcasecmp($val1['META_DISPLAY_NAME'], $val2['META_DISPLAY_NAME']);
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package Credits Page Extension
+* @package Ext Services Check Extension
 * @copyright (c) 2019 david63
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
@@ -24,27 +24,22 @@ class admin_controller implements admin_interface
 	/** @var \david63\extservicescheck\core\functions */
 	protected $functions;
 
-	/** @var string phpBB root path */
-	protected $root_path;
-
 	/**
-	* Constructor for listener
+	* Constructor for admin_controller
 	*
-	* @param \phpbb\template\template					$template			Template object
-	* @param \phpbb\language\language					$language			Language object
-	* @param \david63\extservicescheck\core\functions	functions			Functions for the extension
-	* @param string 				            		$phpbb_root_path	phpBB root path
+	* @param \phpbb\template\template					$template	Template object
+	* @param \phpbb\language\language					$language	Language object
+	* @param \david63\extservicescheck\core\functions	functions	Functions for the extension
 
 	*
 	* @return \david63\extservicescheck\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(template $template, language $language, functions $functions, $phpbb_root_path)
+	public function __construct(template $template, language $language, functions $functions)
 	{
-		$this->template			= $template;
-		$this->language			= $language;
-		$this->functions		= $functions;
-		$this->phpbb_root_path	= $phpbb_root_path;
+		$this->template		= $template;
+		$this->language		= $language;
+		$this->functions	= $functions;
 	}
 
 	/**
@@ -59,13 +54,13 @@ class admin_controller implements admin_interface
 		$this->language->add_lang('acp_extservicescheck', $this->functions->get_ext_namespace());
 
 		$enabled_extension_meta_data = $this->functions->enabled_extension_meta_data();
-		uasort($enabled_extension_meta_data, array($this->functions, 'sort_extension_meta_data_table'));
+		asort($enabled_extension_meta_data);
 
 		// Display the extensions
-		foreach ($enabled_extension_meta_data as $name => $block_vars)
+		foreach ($enabled_extension_meta_data as $block_vars)
 		{
-			$services_file	= $this->phpbb_root_path . 'ext/' . $block_vars['META_NAME'] . '/config/services.yml';
-			$routing_file	= $this->phpbb_root_path . 'ext/' . $block_vars['META_NAME'] . '/config/routing.yml';
+			$services_file	= $block_vars['META_NAME'] . '/config/services.yml';
+			$routing_file	= $block_vars['META_NAME'] . '/config/routing.yml';
 
 			if (!file_exists($services_file))
 			{
@@ -78,6 +73,8 @@ class admin_controller implements admin_interface
 			else
 			{
 				$status = $this->language->lang('SERVICES_FILE_PASS');
+
+				// We will do a quick check on the routing.yml file while we are here
 				if (file_exists($routing_file))
 				{
 					if (strstr(file_get_contents($routing_file), 'pattern:'))
@@ -86,7 +83,6 @@ class admin_controller implements admin_interface
 					}
 				}
 			}
-
 
 			$this->template->assign_block_vars('ext_row', array(
 				'DISPLAY_NAME'	=> $block_vars['META_DISPLAY_NAME'],

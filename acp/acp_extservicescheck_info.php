@@ -17,7 +17,7 @@ class acp_extservicescheck_info
 			'filename'	=> '\david63\extservicescheck\acp\acp_extservicescheck_module',
 			'title'		=> 'EXT_SERVICES_CHECK',
 			'modes'		=> array(
-				'main'	=> array('title' => 'EXT_SERVICES_CHECK', 'auth' => 'ext_david63/extservicescheck && acl_a_extensions', 'cat' => array('CREDITS_PAGE')),
+				'main'	=> array('title' => 'EXT_SERVICES_CHECK', 'auth' => 'ext_david63/extservicescheck && acl_a_extensions', 'cat' => array('ACP_EXTENSION_MANAGEMENT')),
 			),
 		);
 	}
