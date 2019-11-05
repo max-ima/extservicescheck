@@ -3,7 +3,9 @@
 <div class="table">
 	<div class="table-header">
 		<div class="table-header-cell-left">{{ lang('EXTENSION_NAME') }}</div>
+		<div class="table-header-cell-narrow">{{ lang('VENDOR') }}</div>
 		<div class="table-header-cell-narrow">{{ lang('VERSION') }}</div>
+		<div class="table-header-cell-narrow">{{ lang('EXT_STATUS') }}</div>
 		<div class="table-header-cell-right">{{ lang('STATUS') }}</div>
 	</div>
 
@@ -11,7 +13,9 @@
 		{% for row in ext_row %}
 			{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
 				<div class="table-body-cell-bold">{{ row.DISPLAY_NAME }}</div>
+				<div class="table-body-cell-narrow">{{ row.VENDOR }}</div>
 				<div class="table-body-cell-narrow">{{ row.VERSION }}</div>
+				<div class="table-body-cell-narrow">{{ row.EXT_STATUS }}</div>
 				<div class="table-body-cell">{{ row.STATUS }}</div>
 			</div>
 		{% endfor %}

@@ -37,20 +37,26 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
+	'CONFIG_FILE_FAIL'				=> '<strong>»» The <em>%s</em> file is incompatible</strong>',
+	'CONFIG_FILE_PASS'				=> 'The <em>%s</em> file is compatible',
+
+	'DISABLED'						=> 'Disabled',
+	'DORMANT'						=> 'Dormant',
+
+	'ENABLED'						=> 'Enabled',
 	'EXTENSION_NAME'				=> 'Extension name',
-	'EXT_SERVICES_CHECK'			=> 'Extension Services File Syntax Check',
-	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of the <em>services.yml</em> file in all of the enabled extensions on this board for compatibility with phpBB 3.3.<br><br>It does <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>services.yml</em> file.',
+	'EXT_SERVICES_CHECK'			=> 'Extensions .yml File Syntax Check',
+	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of the <em>services.yml</em> file, for all of the extensions on this board, for compatibility with phpBB 3.3. If the <em>services.yml</em> file is found to be compatible then it will check if there is a <em>routing.yml</em> file for the extension and if it also has valid phpBB 3.3 syntax.<br><br>The results from this extension will <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>services.yml</em> and/or <em>routing.yml</em> files.<br><br>Note: A “”',
+	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of the <em>services.yml</em> file, for all of the extensions on this board, for compatibility with phpBB 3.3. If the <em>services.yml</em> file is found to be compatible then it will check if there is a <em>routing.yml</em> file for the extension and if it also has valid phpBB 3.3 syntax.<br><br>The results from this extension will <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>services.yml</em> and/or <em>routing.yml</em> files.<br><br>Note: A “Dormant” extension is one that is in the <em>ext</em> folder but is neither Enabled nor disabled.',
+	'EXT_STATUS'					=> 'Extension status',
 
 	'NEW_VERSION'					=> 'New Version',
 	'NEW_VERSION_EXPLAIN'			=> 'There is a newer version of this extension available.',
-	'NO_SERVICES_FILE'				=> 'This extension does not use a <em>services.yml</em> file',
+	'NO_CONFIG_FILES'				=> 'This extension does not have any config files',
 
-	'ROUTING_FILE_FAIL'				=> '<strong>»» The <em>routing.yml</em> file is incompatible</strong>',
+	'STATUS'						=> '.yml File Status',
 
-	'SERVICES_FILE_FAIL'			=> '<strong>»» The <em>services.yml</em> file is incompatible</strong>',
-	'SERVICES_FILE_PASS'			=> 'The <em>services.yml</em> file is compatible',
-	'STATUS'						=> 'Status',
-
+	'VENDOR'						=> 'Vendor',
 	'VERSION'						=> 'Version',
 ));
 

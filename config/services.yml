@@ -10,3 +10,4 @@ services:
         class: david63\extservicescheck\core\functions
         arguments:
             - '@ext.manager'
+            - '@language'			
