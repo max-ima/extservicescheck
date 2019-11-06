@@ -95,7 +95,7 @@ class functions
 	}
 
 	/**
-	* Get the meta data for the enabled extensions
+	* Get the meta data for the extensions
 	*
 	* @return $extension_meta_data
 	* @access public
@@ -114,8 +114,8 @@ class functions
 			$ext_status = ($this->ext_manager->is_configured($name)) ? $ext_status : $this->language->lang('DORMANT');
 
 			$extension_meta_data[$name] = array(
-				'LOCATION'			=> $location,
 				'EXT_STATUS'		=> $ext_status,
+				'LOCATION'			=> $location,
 				'META_DISPLAY_NAME'	=> $meta_data['extra']['display-name'],
 				'META_VERSION' 		=> $meta_data['version'],
 				'VENDOR'			=> strtok($meta_data['name'], '/'),

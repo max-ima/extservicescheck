@@ -5,9 +5,10 @@ services:
             - '@template'
             - '@language'
             - '@david63.extservicescheck.core.functions'
+            - '%core.root_path%ext/david63/extservicescheck/adm/style/images'
 
     david63.extservicescheck.core.functions:
         class: david63\extservicescheck\core\functions
         arguments:
             - '@ext.manager'
-            - '@language'			
+            - '@language'

@@ -19,7 +19,7 @@ Checks the syntax of the .yml files in extensions prior to phpBB 3.3.
 4. Look for `Extension .yml check` under the Disabled Extensions list and click its `Enable` link.
 
 ## Usage
-1. Navigate in the ACP to Customise -> Extension management -> Extension services check`.
+1. Navigate in the ACP to Customise -> Extension management -> Extensions .yml check`.
 
 ## Uninstall
 1. Navigate in the ACP to `Customise -> Manage extensions`.

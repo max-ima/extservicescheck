@@ -37,5 +37,5 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'EXT_SERVICES_CHECK' => 'Extension services check',
+	'EXT_SERVICES_CHECK' => 'Extensions .yml check',
 ));

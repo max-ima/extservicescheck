@@ -37,16 +37,16 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'CONFIG_FILE_FAIL'				=> '<strong>»» The <em>%s</em> file is incompatible</strong>',
-	'CONFIG_FILE_PASS'				=> 'The <em>%s</em> file is compatible',
+	'CONFIG_FILE_FAIL'				=> '<strong>»» The <em>%s</em> file is invalid</strong>',
+	'CONFIG_FILE_PASS'				=> 'The <em>%s</em> file is valid',
 
 	'DISABLED'						=> 'Disabled',
 	'DORMANT'						=> 'Dormant',
 
 	'ENABLED'						=> 'Enabled',
 	'EXTENSION_NAME'				=> 'Extension name',
-	'EXT_SERVICES_CHECK'			=> 'Extensions .yml File Syntax Check',
-	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of all of the <em>.yml</em> files, for all of the extensions on this board, for compatibility with phpBB 3.3.<br><br>The results from this extension will <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>.yml</em> files.<br><br>Note: A “Dormant” extension is one that is in the <em>ext</em> folder but is neither Enabled nor disabled.',
+	'EXT_SERVICES_CHECK'			=> 'Extensions .yml Files Syntax Check',
+	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of all of the <em>.yml</em> files, for all of the extensions on this board, for compatibility with phpBB 3.3.<br><br>The results from this extension will <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>.yml</em> files.<br><br>Note: A “Dormant” extension is one that is in the <em>ext</em> folder but is neither Enabled nor Disabled.',
 	'EXT_STATUS'					=> 'Extension status',
 
 	'NEW_VERSION'					=> 'New Version',

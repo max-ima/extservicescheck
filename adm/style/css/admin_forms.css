@@ -465,9 +465,8 @@ Tables
 .table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre {
 	display: table-cell;
 	text-align: left;
-	vertical-align: middle;
 	font-size: 0.85em;
-	padding: 4px 0 4px 5px;
+	padding: 0 0 4px 5px;
 	line-height: 1.20em;
 	border-right: 1px solid #FFFFFF;
 }
@@ -478,6 +477,7 @@ Tables
 
 .table-body-cell-bold {
 	font-weight: bold;
+	font-size: 0.9em;
 }
 
 .table-body-cell-span {
@@ -487,7 +487,6 @@ Tables
 
 .table-body-cell-narrow {
 	width: 100px;
-	vertical-align: top;
 }
 
 .table-body-cell-wide {
