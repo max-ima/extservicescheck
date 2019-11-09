@@ -72,7 +72,6 @@ class admin_controller implements admin_interface
 			{
 				$config_files	= array();
 				$status 		= '';
-
 				$files 			= array_diff(scandir($config_dir), array('..', '.'));
 
 				// Create an array of all config folder(s) files
@@ -97,7 +96,12 @@ class admin_controller implements admin_interface
 				// Now we can check the files
 				foreach ($config_files as $yml_file => $filename)
 				{
-					if (preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", file_get_contents($filename)) || strstr(file_get_contents($filename), 'pattern:'))
+					if (preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", file_get_contents($filename)) // Check for quotes
+						|| strstr(file_get_contents(strtolower($filename)), 'pattern:') // Check for "path" not "pattern"
+						|| strstr(file_get_contents(strtolower($filename)), 'class: "') // Check that class is not quoted
+						|| strstr(file_get_contents(strtolower($filename)), 'scope: prototype') // Check the "scope"
+						|| strstr(file_get_contents(strtolower($filename)), 'scope: container')
+						|| strstr(file_get_contents(strtolower($filename)), 'scope: request'))
 					{
 						$status 	.= $this->language->lang('CONFIG_FILE_FAIL', $yml_file);
 						$status_img = true;
@@ -134,6 +138,7 @@ class admin_controller implements admin_interface
 		$this->template->assign_vars(array(
 			'HEAD_TITLE'		=> $this->language->lang('EXT_SERVICES_CHECK'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('EXT_SERVICES_CHECK_EXPLAIN'),
+			'HEAD_ERROR_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/error.png" /> ' . $this->language->lang('HEAD_ERROR_EXPLAIN'),
 
 			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 

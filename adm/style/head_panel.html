@@ -10,7 +10,10 @@
 
 <div class="head-panel">
 	<div class="head-title">{{ HEAD_TITLE }}</div>
-	<div class="head-description">{{ HEAD_DESCRIPTION }}</div>
+	<div class="head-description">
+		{{ HEAD_DESCRIPTION }}
+		<br><br>{{ HEAD_ERROR_EXPLAIN }}
+	</div>
 	<div class="version-wrapper" style="float: {{ S_CONTENT_FLOW_END }};">
 		<div class="version-text">{{ lang('VERSION') }}</div>
 		<div class="version-data">{{ VERSION_NUMBER }}</div>
