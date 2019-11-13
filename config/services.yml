@@ -5,6 +5,7 @@ services:
             - '@template'
             - '@language'
             - '@david63.extservicescheck.core.functions'
+            - '@david63.extservicescheck.core.yml_formatter'
             - '%core.root_path%ext/david63/extservicescheck/adm/style/images'
 
     david63.extservicescheck.core.functions:
@@ -12,3 +13,9 @@ services:
         arguments:
             - '@ext.manager'
             - '@language'
+
+    david63.extservicescheck.core.yml_formatter:
+        class: david63\extservicescheck\core\yml_formatter
+        arguments:
+            - '@language'
+            - '@david63.extservicescheck.core.functions'

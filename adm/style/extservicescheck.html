@@ -1,5 +1,14 @@
 {% include '@' ~ NAMESPACE ~ '/head_panel.html' %}
 
+<fieldset>
+	<legend>{{ lang('LEGEND') }}</legend>
+		{{ ERROR_EXPLAIN }}
+		<br>
+		{{ FILE_EXPLAIN }}
+		<br>
+		{{ FILE_OPEN_EXPLAIN }}
+</fieldset>
+
 <div class="table">
 	<div class="table-header">
 		<div class="table-header-cell-left">{{ lang('EXTENSION_NAME') }}</div>
@@ -13,16 +22,40 @@
 		{% for row in ext_row %}
 			{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
 				<div class="table-body-cell-bold">
-					{% if row.STATUS_IMG %}
+					{% for files in row.file_data if files.STATUS_IMG and not done %}
+						{% set done = true %}
 						<img src="{{ EXT_IMAGE_PATH }}/error.png" />
-					{% endif %}
+					{% endfor %}
 					{{ row.DISPLAY_NAME }}
 				</div>
 				<div class="table-body-cell-narrow">{{ row.VENDOR }}</div>
 				<div class="table-body-cell-narrow">{{ row.VERSION }}</div>
 				<div class="table-body-cell-narrow">{{ row.EXT_STATUS }}</div>
-				<div class="table-body-cell">{{ row.STATUS }}</div>
+				<div class="table-body-cell">
+					{% for files in row.file_data %}
+						{{ files.STATUS }}
+						{% if files.STATUS_IMG %}
+							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files.png" /></span>
+							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files_open.png" /></span>
+						{% endif %}
+						<br>
+					{% endfor %}
+				</div>
 			</div>
+
+			{% for files in row.file_data %}
+				<div class="table-row-span" id="{{ files.FILE_KEY }}">
+					<div class="table-header-cell">{{ lang('ORIGINAL_FILE') }}</div>
+					<div class="table-body">
+						<div class="table-row"><pre>{{ files.OLD_FILE }}</pre></div>
+					</div>
+						<div class="table-header-cell">{{ lang('NEW_FILE') }}</div>
+					<div class="table-body">
+						<div class="table-row" id="{{ files.NEW_FILE_KEY }}"><pre>{{ files.NEW_FILE }}</pre></div>
+						<a class="copy" id="{{ files.NEW_FILE_KEY }}" href="#" name="copy_pre">{{ lang('COPY_CLIPBOARD') }}</a>
+					</div>
+				</div>
+			{% endfor %}
 		{% endfor %}
 	</div>
 </div>
@@ -32,4 +65,5 @@
 	{{ lang('COMMON_ERRORS_EXPLAIN') }}
 </fieldset>
 
+{% INCLUDEJS '@' ~ NAMESPACE ~ '/js/extservicescheck.js' %}
 {% include '@' ~ NAMESPACE ~ '/donate.html' %}

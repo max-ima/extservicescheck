@@ -41,21 +41,29 @@ $lang = array_merge($lang, array(
 	'COMMON_ERRORS_EXPLAIN'			=> 'Some of the common reasons for the errors reported above may be due to, but not limited to, the following reasons:<hr>- A single quote is missing when preceeding either “@” or “%”<br>- “pattern” has been replaced with “path”<br>- “scope: prototype” has become “shared: false”<br>- “scope: container” has become “shared: true”<br>- “scope: request” has also been changed but needs further checking as to what the repacement is”<hr>If in doubt about what to change, or how to change it, then firstly check to see if there is an updated version of the extension available and if not then contact the extension developer in the support topic for the extension.',
 	'CONFIG_FILE_FAIL'				=> '<strong>»» The <em>%s</em> file is invalid</strong>',
 	'CONFIG_FILE_PASS'				=> 'The <em>%s</em> file is valid',
+	'COPY_CLIPBOARD'				=> 'Copy to clipboard',
 
 	'DISABLED'						=> 'Disabled',
 	'DORMANT'						=> 'Dormant',
 
 	'ENABLED'						=> 'Enabled',
+	'ERROR_EXPLAIN'					=> 'Indicates an extension where one, or more, of the config files appears to contain invalid syntax.',
 	'EXTENSION_NAME'				=> 'Extension name',
 	'EXT_SERVICES_CHECK'			=> 'Extensions .yml Files Syntax Check',
 	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of all of the <em>.yml</em> files, for all of the extensions on this board, for compatibility with phpBB 3.3.<br><br>The results from this extension will <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>.yml</em> files.<br><br>Note: A “Dormant” extension is one that is in the <em>ext</em> folder but is neither Enabled nor Disabled.',
 	'EXT_STATUS'					=> 'Extension status',
 
-	'HEAD_ERROR_EXPLAIN'			=> 'Indicates an extension where one, or more, config files appears to contain invalid syntax.',
+	'FILE_EXPLAIN'					=> 'Clicking on this icon will display the “before” and “after” of the file formatting.',
+	'FILE_OPEN_EXPLAIN'				=> 'This show which file(s) is currently open',
 
+	'NEW_FILE'						=> 'Reformatted file',
 	'NEW_VERSION'					=> 'New Version',
 	'NEW_VERSION_EXPLAIN'			=> 'There is a newer version of this extension available.',
 	'NO_CONFIG_FILES'				=> 'This extension does not have any config files',
+
+	'ORIGINAL_FILE'					=> 'Original file',
+
+	'REQUIRES_ATTENTION'			=> '&nbsp;#This line requires attention',
 
 	'STATUS'						=> '.yml File Status',
 

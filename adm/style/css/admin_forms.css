@@ -83,6 +83,20 @@ hr {
 	background-color: #C8C7C4;
 }
 
+pre {
+	font-size: 12px;
+}
+
+a.copy {
+	font-size: 12px;
+	text-align: right;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #0000CC;
+	padding: 4px 50px 4px 50px;
+	margin-top: 5px;
+}
+
 /* ----------
 Radio buttons
 ---------- */
@@ -373,9 +387,10 @@ Tables
 
 .table-header {
 	display: table-header-group;
+	width: 100%;
 }
 
-.table-header-cell, .table-header-cell-left, .table-header-cell-right, .table-header-cell-narrow, .table-header-cell-wide, .table-header-cell-select {
+.table-header-cell, .table-header-cell-left, .table-header-cell-right, .table-header-cell-narrow, .table-header-cell-wide, .table-header-cell-select, .table-header-cell-fifty {
 	display: table-cell;
 	padding: 4px 5px;
 	color: #FFFFFF;
@@ -390,8 +405,12 @@ Tables
 	font-weight: bold;
 }
 
-.rtl .table-header-cell, .rtl .table-header-cell-left, .rtl .table-header-cell-right, .rtl .table-header-cell-select {
+.rtl .table-header-cell, .rtl .table-header-cell-left, .rtl .table-header-cell-right, .rtl .table-header-cell-select, .rtl .table-header-cell-fifty {
 	text-align: right;
+}
+
+.table-header-cell-fifty {
+	width: 50%;
 }
 
 .table-header-cell-left {
@@ -458,11 +477,11 @@ Tables
 }
 
 .table-row-span {
+	width: 100% !important;
 	display: none;
-	width: 700px;
 }
 
-.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre {
+.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-fifty {
 	display: table-cell;
 	text-align: left;
 	font-size: 0.85em;
@@ -471,13 +490,17 @@ Tables
 	border-right: 1px solid #FFFFFF;
 }
 
-.rtl .table-body-cell, .rtl .table-body-cell-bold, .rtl .table-body-cell-select {
+.rtl .table-body-cell, .rtl .table-body-cell-bold, .rtl .table-body-cell-select, .rtl .table-body-cell-fifty {
 	text-align: right;
 }
 
 .table-body-cell-bold {
 	font-weight: bold;
 	font-size: 0.9em;
+}
+
+.table-body-cell-fifty {
+	width: 50%;
 }
 
 .table-body-cell-span {
@@ -629,6 +652,7 @@ td.showkey {
 tr.rowkey {
 	display: none;
 }
+
 
 /* ---------
 * disableext

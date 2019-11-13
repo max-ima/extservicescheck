@@ -12,6 +12,7 @@ namespace david63\extservicescheck\controller;
 use phpbb\template\template;
 use phpbb\language\language;
 use david63\extservicescheck\core\functions;
+use david63\extservicescheck\core\yml_formatter;
 
 class admin_controller implements admin_interface
 {
@@ -24,27 +25,31 @@ class admin_controller implements admin_interface
 	/** @var \david63\extservicescheck\core\functions */
 	protected $functions;
 
+	/** @var \david63\extservicescheck\core\yml_formatter */
+	protected $yml_formatter;
+
 	/** @var string */
 	protected $ext_root_path;
 
 	/**
 	* Constructor for admin_controller
 	*
-	* @param \phpbb\template\template					$template		Template object
-	* @param \phpbb\language\language					$language		Language object
-	* @param \david63\extservicescheck\core\functions	functions		Functions for the extension
-	* @param string										$ext_root_path	Path to this extension's root
-
+	* @param \phpbb\template\template						$template			Template object
+	* @param \phpbb\language\language						$language			Language object
+	* @param \david63\extservicescheck\core\functions		functions			Functions for the extension
+	* @param \david63\extservicescheck\core\yml_formatter	yml_formatter		yml_formatter for the extension
+	* @param string											$ext_root_path		Path to this extension's root
 	*
 	* @return \david63\extservicescheck\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(template $template, language $language, functions $functions, $ext_images_path)
+	public function __construct(template $template, language $language, functions $functions, yml_formatter $yml_formatter, $ext_images_path)
 	{
-		$this->template			= $template;
-		$this->language			= $language;
-		$this->functions		= $functions;
-		$this->ext_images_path	= $ext_images_path;
+		$this->template				= $template;
+		$this->language				= $language;
+		$this->functions			= $functions;
+		$this->yml_formatter		= $yml_formatter;
+		$this->ext_images_path		= $ext_images_path;
 	}
 
 	/**
@@ -66,7 +71,15 @@ class admin_controller implements admin_interface
 		foreach ($extension_meta_data as $block_vars)
 		{
 			$config_dir = $block_vars['LOCATION'] . 'config/';
-			$status_img	= false;
+
+			$this->template->assign_block_vars('ext_row', array(
+				'DISPLAY_NAME'	=> $block_vars['META_DISPLAY_NAME'],
+
+				'EXT_STATUS'	=> $block_vars['EXT_STATUS'],
+
+				'VENDOR'		=> $block_vars['VENDOR'],
+				'VERSION'		=> $block_vars['META_VERSION'],
+			));
 
 			if (is_dir($config_dir))
 			{
@@ -98,53 +111,56 @@ class admin_controller implements admin_interface
 				{
 					if (preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", file_get_contents($filename)) // Check for quotes
 						|| strstr(file_get_contents(strtolower($filename)), 'pattern:') // Check for "path" not "pattern"
-						|| strstr(file_get_contents(strtolower($filename)), 'class: "') // Check that class is not quoted
 						|| strstr(file_get_contents(strtolower($filename)), 'scope: prototype') // Check the "scope"
 						|| strstr(file_get_contents(strtolower($filename)), 'scope: container')
 						|| strstr(file_get_contents(strtolower($filename)), 'scope: request'))
 					{
-						$status 	.= $this->language->lang('CONFIG_FILE_FAIL', $yml_file);
-						$status_img = true;
+						$this->template->assign_block_vars('ext_row.file_data', array(
+							// Create a unique key for the js script
+							'FILE_KEY'		=> rand(),
+
+							'NEW_FILE'		=> $this->yml_formatter->yaml_format($filename),
+							'NEW_FILE_KEY'	=> rand(),
+
+							'OLD_FILE'		=> file_get_contents($filename),
+
+							'STATUS'		=> $this->language->lang('CONFIG_FILE_FAIL', $yml_file),
+							'STATUS_IMG'	=> true,
+						));
 					}
 					else
 					{
-						$status 	.= $this->language->lang('CONFIG_FILE_PASS', $yml_file);
-						$status_img = ($status_img) ? true: false;
+						$this->template->assign_block_vars('ext_row.file_data', array(
+							'STATUS' => $this->language->lang('CONFIG_FILE_PASS', $yml_file),
+						));
 					}
-					$status = $status . '<br>';
 				}
 			}
 			else
 			{
-				$status = $this->language->lang('NO_CONFIG_FILES');
+				$this->template->assign_block_vars('ext_row.file_data', array(
+					'STATUS' => $this->language->lang('NO_CONFIG_FILES'),
+				));
 			}
-
-			$this->template->assign_block_vars('ext_row', array(
-				'DISPLAY_NAME'	=> $block_vars['META_DISPLAY_NAME'],
-
-				'EXT_STATUS'	=> $block_vars['EXT_STATUS'],
-
-				'STATUS'		=> $status,
-				'STATUS_IMG'	=> $status_img,
-
-				'VENDOR'		=> $block_vars['VENDOR'],
-				'VERSION'		=> $block_vars['META_VERSION'],
-			));
 		}
 
 		$this->template->assign_var('EXT_IMAGE_PATH', $this->ext_images_path);
 
 		// Template vars for header panel
 		$this->template->assign_vars(array(
-			'HEAD_TITLE'		=> $this->language->lang('EXT_SERVICES_CHECK'),
-			'HEAD_DESCRIPTION'	=> $this->language->lang('EXT_SERVICES_CHECK_EXPLAIN'),
-			'HEAD_ERROR_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/error.png" /> ' . $this->language->lang('HEAD_ERROR_EXPLAIN'),
+			'ERROR_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/error.png" /> ' . $this->language->lang('ERROR_EXPLAIN'),
 
-			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
+			'FILE_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/files.png" /> ' . $this->language->lang('FILE_EXPLAIN'),
+			'FILE_OPEN_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/files_open.png" /> ' . $this->language->lang('FILE_OPEN_EXPLAIN'),
 
-			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+			'HEAD_TITLE'			=> $this->language->lang('EXT_SERVICES_CHECK'),
+			'HEAD_DESCRIPTION'		=> $this->language->lang('EXT_SERVICES_CHECK_EXPLAIN'),
 
-			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
+			'NAMESPACE'				=> $this->functions->get_ext_namespace('twig'),
+
+			'S_VERSION_CHECK'		=> $this->functions->version_check(),
+
+			'VERSION_NUMBER'		=> $this->functions->get_this_version(),
 		));
 	}
 }
