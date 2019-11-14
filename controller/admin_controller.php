@@ -109,23 +109,48 @@ class admin_controller implements admin_interface
 				// Now we can check the files
 				foreach ($config_files as $yml_file => $filename)
 				{
-					if (preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", file_get_contents($filename)) // Check for quotes
-						|| strstr(file_get_contents(strtolower($filename)), 'pattern:') // Check for "path" not "pattern"
-						|| strstr(file_get_contents(strtolower($filename)), 'scope: prototype') // Check the "scope"
-						|| strstr(file_get_contents(strtolower($filename)), 'scope: container')
-						|| strstr(file_get_contents(strtolower($filename)), 'scope: request'))
+					// Check that the file is accessible
+					if (!is_readable($filename))
+					{
+						$this->template->assign_block_vars('ext_row.file_data', array(
+							'STATUS' 			=> $this->language->lang('FILE_NOT_READABLE', $yml_file),
+							'STATUS_QUERY_IMG'	=> true,
+						));
+					}
+					else if (!$file_contents = file_get_contents(strtolower($filename)))
+					{
+						if (!empty($file_contents))
+						{
+							$this->template->assign_block_vars('ext_row.file_data', array(
+								'STATUS' 			=> $this->language->lang('FILE_NOT_ACCESSIBLE', $yml_file),
+								'STATUS_QUERY_IMG'	=> true,
+							));
+						}
+						else
+						{
+							$this->template->assign_block_vars('ext_row.file_data', array(
+								'STATUS' 			=> $this->language->lang('FILE_EMPTY', $yml_file),
+								'STATUS_QUERY_IMG'	=> true,
+							));
+						}
+					}
+					else if	(preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", $file_contents) // Check for quotes
+						|| strstr($file_contents, 'pattern:') // Check for "path" not "pattern"
+						|| strstr($file_contents, 'scope: prototype') // Check the "scope"
+						|| strstr($file_contents, 'scope: container')
+						|| strstr($file_contents, 'scope: request'))
 					{
 						$this->template->assign_block_vars('ext_row.file_data', array(
 							// Create a unique key for the js script
-							'FILE_KEY'		=> rand(),
+							'FILE_KEY'			=> rand(),
 
-							'NEW_FILE'		=> $this->yml_formatter->yaml_format($filename),
-							'NEW_FILE_KEY'	=> rand(),
+							'NEW_FILE'			=> $this->yml_formatter->yaml_format($filename),
+							'NEW_FILE_KEY'		=> rand(),
 
-							'OLD_FILE'		=> file_get_contents($filename),
+							'OLD_FILE'			=> file_get_contents($filename),
 
-							'STATUS'		=> $this->language->lang('CONFIG_FILE_FAIL', $yml_file),
-							'STATUS_IMG'	=> true,
+							'STATUS'			=> $this->language->lang('CONFIG_FILE_FAIL', $yml_file),
+							'STATUS_ERROR_IMG'	=> true,
 						));
 					}
 					else
@@ -152,6 +177,7 @@ class admin_controller implements admin_interface
 
 			'FILE_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/files.png" /> ' . $this->language->lang('FILE_EXPLAIN'),
 			'FILE_OPEN_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/files_open.png" /> ' . $this->language->lang('FILE_OPEN_EXPLAIN'),
+			'FILE_QUERY_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/question.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
 
 			'HEAD_TITLE'			=> $this->language->lang('EXT_SERVICES_CHECK'),
 			'HEAD_DESCRIPTION'		=> $this->language->lang('EXT_SERVICES_CHECK_EXPLAIN'),

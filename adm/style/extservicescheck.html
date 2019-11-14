@@ -7,6 +7,8 @@
 		{{ FILE_EXPLAIN }}
 		<br>
 		{{ FILE_OPEN_EXPLAIN }}
+		<br>
+		{{ FILE_QUERY_EXPLAIN }}
 </fieldset>
 
 <div class="table">
@@ -22,9 +24,14 @@
 		{% for row in ext_row %}
 			{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
 				<div class="table-body-cell-bold">
-					{% for files in row.file_data if files.STATUS_IMG and not done %}
-						{% set done = true %}
-						<img src="{{ EXT_IMAGE_PATH }}/error.png" />
+					{% for files in row.file_data %}
+						{% if files.STATUS_ERROR_IMG and not done %}
+							{% set done = true %}
+							<img src="{{ EXT_IMAGE_PATH }}/error.png" />
+						{% endif %}
+						{% if not files.STATUS_ERROR_IMG and files.STATUS_QUERY_IMG %}
+							<img src="{{ EXT_IMAGE_PATH }}/question.png" />
+						{% endif %}
 					{% endfor %}
 					{{ row.DISPLAY_NAME }}
 				</div>
@@ -33,8 +40,11 @@
 				<div class="table-body-cell-narrow">{{ row.EXT_STATUS }}</div>
 				<div class="table-body-cell">
 					{% for files in row.file_data %}
+						{% if files.STATUS_QUERY_IMG %}
+							<img src="{{ EXT_IMAGE_PATH }}/question.png" />
+						{% endif %}
 						{{ files.STATUS }}
-						{% if files.STATUS_IMG %}
+						{% if files.STATUS_ERROR_IMG %}
 							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files.png" /></span>
 							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files_open.png" /></span>
 						{% endif %}
