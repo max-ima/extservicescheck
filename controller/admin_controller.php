@@ -134,7 +134,7 @@ class admin_controller implements admin_interface
 							));
 						}
 					}
-					else if	(preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", $file_contents) // Check for quotes
+					else if (preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", $file_contents) // Check for quotes
 						|| strstr($file_contents, 'pattern:') // Check for "path" not "pattern"
 						|| strstr($file_contents, 'scope: prototype') // Check the "scope"
 						|| strstr($file_contents, 'scope: container')
