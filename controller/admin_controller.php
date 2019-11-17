@@ -70,7 +70,8 @@ class admin_controller implements admin_interface
 		// Display the extensions
 		foreach ($extension_meta_data as $block_vars)
 		{
-			$config_dir = $block_vars['LOCATION'] . 'config/';
+			$config_dir	= $block_vars['LOCATION'] . 'config/';
+			$ext_name	= $block_vars['META_NAME'];
 
 			$this->template->assign_block_vars('ext_row', array(
 				'DISPLAY_NAME'	=> $block_vars['META_DISPLAY_NAME'],
@@ -87,7 +88,7 @@ class admin_controller implements admin_interface
 				$status 		= '';
 				$files 			= array_diff(scandir($config_dir), array('..', '.'));
 
-				// Create an array of all config folder(s) files
+				// Create an array of all config folder(s) & files
 				foreach ($files as $filename)
 				{
 					// Is this a file or dir?
@@ -109,32 +110,42 @@ class admin_controller implements admin_interface
 				// Now we can check the files
 				foreach ($config_files as $yml_file => $filename)
 				{
+					// Check the namespace
+					if (!preg_match('/^[a-zA-Z0-9\/]+$/', $ext_name) // Check for non alphnumeric characters
+						|| !ctype_alpha($ext_name[0])) // Check first character is alpha
+					{
+						$this->template->assign_block_vars('ext_row.file_data', array(
+							'STATUS' 		=> $this->language->lang('INVALID_CHRACTERS', $ext_name),
+							'STATUS_IMAGE'	=> 'query',
+						));
+					}
+
 					// Check that the file is accessible
 					if (!is_readable($filename))
 					{
 						$this->template->assign_block_vars('ext_row.file_data', array(
-							'STATUS' 			=> $this->language->lang('FILE_NOT_READABLE', $yml_file),
-							'STATUS_QUERY_IMG'	=> true,
+							'STATUS' 		=> $this->language->lang('FILE_NOT_READABLE', $yml_file),
+							'STATUS_IMAGE'	=> 'query',
 						));
 					}
-					else if (!$file_contents = file_get_contents(strtolower($filename)))
+					else if (!$file_contents = file_get_contents($filename))
 					{
 						if (!empty($file_contents))
 						{
 							$this->template->assign_block_vars('ext_row.file_data', array(
-								'STATUS' 			=> $this->language->lang('FILE_NOT_ACCESSIBLE', $yml_file),
-								'STATUS_QUERY_IMG'	=> true,
+								'STATUS' 		=> $this->language->lang('FILE_NOT_ACCESSIBLE', $yml_file),
+								'STATUS_IMAGE'	=> 'query',
 							));
 						}
 						else
 						{
 							$this->template->assign_block_vars('ext_row.file_data', array(
-								'STATUS' 			=> $this->language->lang('FILE_EMPTY', $yml_file),
-								'STATUS_QUERY_IMG'	=> true,
+								'STATUS' 		=> $this->language->lang('FILE_EMPTY', $yml_file),
+								'STATUS_IMAGE'	=> 'query',
 							));
 						}
 					}
-					else if (preg_match("/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/", $file_contents) // Check for quotes
+					else if (preg_match('/\-\ \@|\-\ \%|\[\@|\[\%|\:\ \%/', $file_contents) // Check for quotes
 						|| strstr($file_contents, 'pattern:') // Check for "path" not "pattern"
 						|| strstr($file_contents, 'scope: prototype') // Check the "scope"
 						|| strstr($file_contents, 'scope: container')
@@ -142,29 +153,31 @@ class admin_controller implements admin_interface
 					{
 						$this->template->assign_block_vars('ext_row.file_data', array(
 							// Create a unique key for the js script
-							'FILE_KEY'			=> rand(),
+							'FILE_KEY'		=> rand(),
 
-							'NEW_FILE'			=> $this->yml_formatter->yaml_format($filename),
-							'NEW_FILE_KEY'		=> rand(),
+							'NEW_FILE'		=> $this->yml_formatter->yaml_format($filename),
+							'NEW_FILE_KEY'	=> rand(),
 
-							'OLD_FILE'			=> file_get_contents($filename),
+							'OLD_FILE'		=> file_get_contents($filename),
 
-							'STATUS'			=> $this->language->lang('CONFIG_FILE_FAIL', $yml_file),
-							'STATUS_ERROR_IMG'	=> true,
+							'STATUS'		=> $this->language->lang('CONFIG_FILE_FAIL', $yml_file),
+							'STATUS_IMAGE'	=> 'error',
 						));
 					}
 					else
 					{
 						$this->template->assign_block_vars('ext_row.file_data', array(
-							'STATUS' => $this->language->lang('CONFIG_FILE_PASS', $yml_file),
+							'STATUS' 		=> $this->language->lang('CONFIG_FILE_PASS', $yml_file),
+							'STATUS_IMAGE'	=> 'ok',
 						));
-					}
+					};
 				}
 			}
 			else
 			{
 				$this->template->assign_block_vars('ext_row.file_data', array(
-					'STATUS' => $this->language->lang('NO_CONFIG_FILES'),
+					'STATUS' 		=> $this->language->lang('NO_CONFIG_FILES'),
+					'STATUS_IMAGE'	=> 'ok',
 				));
 			}
 		}
@@ -177,12 +190,14 @@ class admin_controller implements admin_interface
 
 			'FILE_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/files.png" /> ' . $this->language->lang('FILE_EXPLAIN'),
 			'FILE_OPEN_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/files_open.png" /> ' . $this->language->lang('FILE_OPEN_EXPLAIN'),
-			'FILE_QUERY_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/question.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
+			'FILE_QUERY_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/query.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
 
 			'HEAD_TITLE'			=> $this->language->lang('EXT_SERVICES_CHECK'),
 			'HEAD_DESCRIPTION'		=> $this->language->lang('EXT_SERVICES_CHECK_EXPLAIN'),
 
 			'NAMESPACE'				=> $this->functions->get_ext_namespace('twig'),
+
+			'OK_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/ok.png" /> ' . $this->language->lang('OK_EXPLAIN'),
 
 			'S_VERSION_CHECK'		=> $this->functions->version_check(),
 

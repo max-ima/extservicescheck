@@ -58,8 +58,10 @@ $lang = array_merge($lang, array(
 	'FILE_EXPLAIN'					=> 'Clicking on this icon will display the “before” and “after” of the file formatting.',
 	'FILE_NOT_ACCESSIBLE'			=> 'The <em>%s</em> file is not accessible',
 	'FILE_NOT_READABLE'				=> 'The <em>%s</em> file is not readable',
-	'FILE_OPEN_EXPLAIN'				=> 'This show which file(s) is currently open.',
-	'FILE_QUERY_EXPLAIN'			=> 'There is a query with this file.',
+	'FILE_OPEN_EXPLAIN'				=> 'This changes to show the files currently open.',
+	'FILE_QUERY_EXPLAIN'			=> 'There is a query with this file/extension.',
+
+	'INVALID_CHRACTERS'				=> 'The namespace <em>%s</em> contains invalid characters',
 
 	'LEGEND'						=> 'Legend',
 
@@ -68,6 +70,7 @@ $lang = array_merge($lang, array(
 	'NEW_VERSION_EXPLAIN'			=> 'There is a newer version of this extension available.',
 	'NO_CONFIG_FILES'				=> 'This extension does not have any config files',
 
+	'OK_EXPLAIN'					=> 'This extensions appears to be OK.',
 	'ORIGINAL_FILE'					=> 'Original file',
 
 	'REQUIRES_ATTENTION'			=> '&nbsp;#This line requires attention',

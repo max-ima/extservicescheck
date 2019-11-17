@@ -117,6 +117,7 @@ class functions
 				'EXT_STATUS'		=> $ext_status,
 				'LOCATION'			=> $location,
 				'META_DISPLAY_NAME'	=> $meta_data['extra']['display-name'],
+				'META_NAME'			=> $meta_data['name'],
 				'META_VERSION' 		=> $meta_data['version'],
 				'VENDOR'			=> strtok($meta_data['name'], '/'),
 			);

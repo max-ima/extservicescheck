@@ -390,7 +390,7 @@ Tables
 	width: 100%;
 }
 
-.table-header-cell, .table-header-cell-left, .table-header-cell-right, .table-header-cell-narrow, .table-header-cell-wide, .table-header-cell-select, .table-header-cell-fifty {
+.table-header-cell, .table-header-cell-left, .table-header-cell-narrow-left, .table-header-cell-right, .table-header-cell-narrow, .table-header-cell-wide, .table-header-cell-select {
 	display: table-cell;
 	padding: 4px 5px;
 	color: #FFFFFF;
@@ -405,21 +405,28 @@ Tables
 	font-weight: bold;
 }
 
-.rtl .table-header-cell, .rtl .table-header-cell-left, .rtl .table-header-cell-right, .rtl .table-header-cell-select, .rtl .table-header-cell-fifty {
+.rtl .table-header-cell, .rtl .table-header-cell-left, .rtl .table-header-cell-narrow-left, .rtl .table-header-cell-right, .rtl .table-header-cell-select {
 	text-align: right;
-}
-
-.table-header-cell-fifty {
-	width: 50%;
 }
 
 .table-header-cell-left {
 	border-top-left-radius: 1em;
 }
 
+.table-header-cell-narrow-left {
+	border-top-left-radius: 1em;
+	width: 10px;
+}
+
 .rtl .table-header-cell-left {
 	border-top-right-radius: 1em;
 	border-top-left-radius: 0;
+}
+
+.rtl .table-header-cell-narrow-left {
+	border-top-right-radius: 1em;
+	border-top-left-radius: 0;
+	width: 10px;
 }
 
 .table-header-cell-right {
@@ -481,7 +488,7 @@ Tables
 	display: none;
 }
 
-.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-fifty {
+.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-tiny {
 	display: table-cell;
 	text-align: left;
 	font-size: 0.85em;
@@ -490,17 +497,13 @@ Tables
 	border-right: 1px solid #FFFFFF;
 }
 
-.rtl .table-body-cell, .rtl .table-body-cell-bold, .rtl .table-body-cell-select, .rtl .table-body-cell-fifty {
+.rtl .table-body-cell, .rtl .table-body-cell-bold, .rtl .table-body-cell-select {
 	text-align: right;
 }
 
 .table-body-cell-bold {
 	font-weight: bold;
 	font-size: 0.9em;
-}
-
-.table-body-cell-fifty {
-	width: 50%;
 }
 
 .table-body-cell-span {
@@ -518,6 +521,12 @@ Tables
 
 .table-body-cell-centre {
 	text-align: center;
+}
+
+.table-body-cell-tiny {
+	width: 10px;
+	text-align: center;
+	padding: 0;
 }
 
 .shaded {
