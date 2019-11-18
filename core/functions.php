@@ -147,7 +147,10 @@ class functions
 	*/
 	public function extension_disable($ext_name)
 	{
-		while ($this->ext_manager->disable_step($ext_name));
+		while ($this->ext_manager->disable_step($ext_name))
+		{
+			continue;
+		}
 
 		// Add disable action to the admin log
 		$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_EXTN_DISABLE', time(), array($ext_name));

@@ -39,5 +39,5 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'EXT_SERVICES_CHECK'	=> 'Extensions .yml check',
 
-	'LOG_EXTN_DISABLE'		=> '<strong>Extension disabled by Extensions .yml check</strong><br />» %s',
+	'LOG_EXTN_DISABLE'		=> '<strong>Extension disabled by “Extensions .yml check”</strong><br />» %s',
 ));
