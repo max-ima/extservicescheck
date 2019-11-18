@@ -5,6 +5,7 @@
 		{{ ERROR_EXPLAIN }}<br>
 		{{ OK_EXPLAIN }}<br>
 		{{ FILE_QUERY_EXPLAIN }}<br>
+		{{ DISABLE_EXPLAIN }}<br>
 		{{ FILE_EXPLAIN }}<br>
 		{{ FILE_OPEN_EXPLAIN }}
 </fieldset>
@@ -21,36 +22,40 @@
 
 	<div class="table-body">
 		{% for row in ext_row %}
+			{# Create an array of the STATUS_IMAGE vars for later use #}
+			{% set image_ary = [] %}
+			{% for files in row.file_data %}
+				{% set image_ary = image_ary|merge([files.STATUS_IMAGE]) %}
+			{% endfor %}
 			{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
 				<div class="table-body-cell-tiny">
-					{# Create an array of the STATUS_IMAGE vars for the extension #}
-					{% set image_ary = [] %}
-					{% for files in row.file_data %}
-						{% set image_ary = image_ary|merge([files.STATUS_IMAGE]) %}
-					{% endfor %}
-
-					{# Find the data in the array #}
+					{# Find the image data in the array #}
 					{% if 'error' in image_ary %}
-						<img src="{{ EXT_IMAGE_PATH }}/error.png" />
+						<img src="{{ EXT_IMAGE_PATH }}/error.png" title="{{ lang('ICON_EXTN_ERROR') }}" />
 					{% elseif 'query' in image_ary %}
-						<img src="{{ EXT_IMAGE_PATH }}/query.png" />
+						<img src="{{ EXT_IMAGE_PATH }}/query.png" title="{{ lang('ICON_EXTN_QUERY') }}" />
 					{% else %}
-						<img src="{{ EXT_IMAGE_PATH }}/ok.png" />
+						<img src="{{ EXT_IMAGE_PATH }}/ok.png" title="{{ lang('ICON_EXTN_OK') }}" />
 					{% endif %}
 				</div>
 				<div class="table-body-cell-bold">{{ row.DISPLAY_NAME }}</div>
 				<div class="table-body-cell-narrow">{{ row.VENDOR }}</div>
 				<div class="table-body-cell-narrow">{{ row.VERSION }}</div>
-				<div class="table-body-cell-narrow">{{ row.EXT_STATUS }}</div>
+				<div class="table-body-cell-narrow">
+					{{ row.EXT_STATUS }}
+					{% if row.EXT_ENABLED and ('error' in image_ary or 'query' in image_ary) %}
+						<a href="{{ row.U_ACTION }}"><img src="{{ EXT_IMAGE_PATH }}/disable.png" title="{{ lang('ICON_EXTN_DISABLE') }}" /></a>
+					{% endif %}
+				</div>
 				<div class="table-body-cell">
 					{% for files in row.file_data %}
 						{% if files.STATUS_IMAGE == 'query' %}
-							<img src="{{ EXT_IMAGE_PATH }}/query.png" />
+							<img src="{{ EXT_IMAGE_PATH }}/query.png" title="{{ lang('ICON_FILE_QUERY') }}" />
 						{% endif %}
 						{{ files.STATUS }}
 						{% if files.STATUS_IMAGE == 'error' %}
-							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files.png" /></span>
-							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files_open.png" /></span>
+							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files.png" title="{{ lang('ICON_FILE_CLOSED') }}" /></span>
+							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files_open.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
 						{% endif %}
 						<br>
 					{% endfor %}
@@ -66,6 +71,7 @@
 						<div class="table-header-cell">{{ lang('NEW_FILE') }}</div>
 					<div class="table-body">
 						<div class="table-row" id="{{ files.NEW_FILE_KEY }}"><pre>{{ files.NEW_FILE }}</pre></div>
+						<br>
 						<a class="copy" id="{{ files.NEW_FILE_KEY }}" href="#" name="copy_pre">{{ lang('COPY_CLIPBOARD') }}</a>
 					</div>
 				</div>

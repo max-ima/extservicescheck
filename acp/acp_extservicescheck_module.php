@@ -23,6 +23,9 @@ class acp_extservicescheck_module
 		// Get an instance of the admin controller
 		$admin_controller = $phpbb_container->get('david63.extservicescheck.admin.controller');
 
+		// Make the $u_action url available in the data controller
+		$admin_controller->set_page_url($this->u_action);
+
 		$admin_controller->display_output();
 	}
 }

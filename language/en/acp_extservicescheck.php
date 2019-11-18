@@ -38,12 +38,13 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'COMMON_ERRORS'					=> 'Common errors',
-	'COMMON_ERRORS_EXPLAIN'			=> 'Some of the common reasons for the errors reported above may be due to, but not limited to, the following reasons:<hr>- A single quote is missing when preceeding either “@” or “%”<br>- “pattern” has been replaced with “path”<br>- “scope: prototype” has become “shared: false”<br>- “scope: container” has become “shared: true”<br>- “scope: request” has also been changed but needs further checking as to what the repacement is”<hr>If in doubt about what to change, or how to change it, then firstly check to see if there is an updated version of the extension available and if not then contact the extension developer in the support topic for the extension.',
+	'COMMON_ERRORS_EXPLAIN'			=> 'Some of the common reasons for the errors reported above may be due to, but not limited to, the following reasons:<hr>- A single quote is missing when preceeding either “@” or “%”<br>- “pattern” has been replaced with “path”<br>- “scope: prototype” has become “shared: false”<br>- “scope: container” has become “shared: true”<br>- “scope: request” has also been changed but needs further checking as to what the repacement is”<br>- An extension’s namespace will be reported as invalid if it contains an underscore.<hr>If in doubt about what to change, or how to change it, then firstly check to see if there is an updated version of the extension available and if not then contact the extension developer in the support topic for the extension.',
 	'CONFIG_FILE_FAIL'				=> '<strong>»» The <em>%s</em> file is invalid</strong>',
 	'CONFIG_FILE_PASS'				=> 'The <em>%s</em> file is valid',
 	'COPY_CLIPBOARD'				=> 'Copy to clipboard',
 
 	'DISABLED'						=> 'Disabled',
+	'DISABLE_EXPLAIN'				=> 'This allows you to disable this extension.',
 	'DORMANT'						=> 'Dormant',
 
 	'ENABLED'						=> 'Enabled',
@@ -61,6 +62,13 @@ $lang = array_merge($lang, array(
 	'FILE_OPEN_EXPLAIN'				=> 'This changes to show the files currently open.',
 	'FILE_QUERY_EXPLAIN'			=> 'There is a query with this file/extension.',
 
+	'ICON_EXTN_DISABLE'				=> 'Disable this extension',
+	'ICON_EXTN_ERROR'				=> 'This extension appears to have errors',
+	'ICON_EXTN_OK'					=> 'This extension appers to be correct',
+	'ICON_EXTN_QUERY'				=> 'There is a query with one, or more, files in this extension',
+	'ICON_FILE_CLOSED'				=> 'Click to show files',
+	'ICON_FILE_OPEN'				=> 'Click to close files',
+	'ICON_FILE_QUERY'				=> 'There is a query with this file',
 	'INVALID_CHRACTERS'				=> 'The namespace <em>%s</em> contains invalid characters',
 
 	'LEGEND'						=> 'Legend',

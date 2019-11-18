@@ -9,6 +9,7 @@
 
 namespace david63\extservicescheck\controller;
 
+use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\language\language;
 use david63\extservicescheck\core\functions;
@@ -16,6 +17,9 @@ use david63\extservicescheck\core\yml_formatter;
 
 class admin_controller implements admin_interface
 {
+	/** @var \phpbb\request\request */
+	protected $request;
+
 	/** @var \phpbb\template\template */
 	protected $template;
 
@@ -31,9 +35,13 @@ class admin_controller implements admin_interface
 	/** @var string */
 	protected $ext_root_path;
 
+	/** @var string Custom form action */
+	protected $u_action;
+
 	/**
 	* Constructor for admin_controller
 	*
+	* @param \phpbb\request\request							$request			Request object
 	* @param \phpbb\template\template						$template			Template object
 	* @param \phpbb\language\language						$language			Language object
 	* @param \david63\extservicescheck\core\functions		functions			Functions for the extension
@@ -43,13 +51,14 @@ class admin_controller implements admin_interface
 	* @return \david63\extservicescheck\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(template $template, language $language, functions $functions, yml_formatter $yml_formatter, $ext_images_path)
+	public function __construct(request $request, template $template, language $language, functions $functions, yml_formatter $yml_formatter, $ext_images_path)
 	{
-		$this->template				= $template;
-		$this->language				= $language;
-		$this->functions			= $functions;
-		$this->yml_formatter		= $yml_formatter;
-		$this->ext_images_path		= $ext_images_path;
+		$this->request			= $request;
+		$this->template			= $template;
+		$this->language			= $language;
+		$this->functions		= $functions;
+		$this->yml_formatter	= $yml_formatter;
+		$this->ext_images_path	= $ext_images_path;
 	}
 
 	/**
@@ -63,6 +72,15 @@ class admin_controller implements admin_interface
 		// Add the language file
 		$this->language->add_lang('acp_extservicescheck', $this->functions->get_ext_namespace());
 
+		$disable 	= $this->request->variable('disable', '');
+		$ext_name	= $this->request->variable('ext_name', '');
+
+		// Are we disabling an extension?
+		if ($disable == 'disable')
+		{
+			$this->functions->extension_disable($ext_name);
+		}
+
 		// Get an array of the extensions and sort into alphbetical order
 		$extension_meta_data = $this->functions->extension_meta_data();
 		uasort($extension_meta_data, array($this->functions, 'sort_extension_meta_data_table'));
@@ -72,21 +90,25 @@ class admin_controller implements admin_interface
 		{
 			$config_dir	= $block_vars['LOCATION'] . 'config/';
 			$ext_name	= $block_vars['META_NAME'];
+			$vendor		= $block_vars['VENDOR'];
 
 			$this->template->assign_block_vars('ext_row', array(
 				'DISPLAY_NAME'	=> $block_vars['META_DISPLAY_NAME'],
 
+				'EXT_ENABLED'	=> $block_vars['EXT_ENABLED'],
 				'EXT_STATUS'	=> $block_vars['EXT_STATUS'],
 
-				'VENDOR'		=> $block_vars['VENDOR'],
+				'U_ACTION' 		=> "{$this->u_action}&amp;disable=disable&amp;ext_name=$ext_name",
+
+				'VENDOR'		=> $vendor,
 				'VERSION'		=> $block_vars['META_VERSION'],
 			));
 
 			if (is_dir($config_dir))
 			{
-				$config_files	= array();
-				$status 		= '';
-				$files 			= array_diff(scandir($config_dir), array('..', '.'));
+				$yaml_files	= array();
+				$status 	= '';
+				$files 		= array_diff(scandir($config_dir), array('..', '.'));
 
 				// Create an array of all config folder(s) & files
 				foreach ($files as $filename)
@@ -94,7 +116,7 @@ class admin_controller implements admin_interface
 					// Is this a file or dir?
 					if (strpos($filename, '.'))
 					{
-						$config_files[$filename] = $config_dir . $filename;
+						$yaml_files[$filename] = $config_dir . $filename;
 					}
 					else
 					{
@@ -102,17 +124,19 @@ class admin_controller implements admin_interface
 
 						foreach ($sub_files as $sub_filename)
 						{
-							$config_files[$sub_filename] = $config_dir . $filename . '/' . $sub_filename;
+							$yaml_files[$sub_filename] = $config_dir . $filename . '/' . $sub_filename;
 						}
 					}
 				}
 
 				// Now we can check the files
-				foreach ($config_files as $yml_file => $filename)
+				foreach ($yaml_files as $yml_file => $filename)
 				{
+					$ext_namespace = str_replace($vendor . '/', '', $ext_name);
 					// Check the namespace
-					if (!preg_match('/^[a-zA-Z0-9\/]+$/', $ext_name) // Check for non alphnumeric characters
-						|| !ctype_alpha($ext_name[0])) // Check first character is alpha
+					if (!preg_match('/^[a-zA-Z0-9\/]+$/', $ext_namespace) // Check for non alphnumeric characters
+						|| !ctype_alpha($ext_name[0]) // Check first character is alpha
+						|| !ctype_alpha($ext_namespace[0]))
 					{
 						$this->template->assign_block_vars('ext_row.file_data', array(
 							'STATUS' 		=> $this->language->lang('INVALID_CHRACTERS', $ext_name),
@@ -186,6 +210,8 @@ class admin_controller implements admin_interface
 
 		// Template vars for header panel
 		$this->template->assign_vars(array(
+			'DISABLE_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/disable.png" /> ' . $this->language->lang('DISABLE_EXPLAIN'),
+
 			'ERROR_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/error.png" /> ' . $this->language->lang('ERROR_EXPLAIN'),
 
 			'FILE_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/files.png" /> ' . $this->language->lang('FILE_EXPLAIN'),
@@ -203,5 +229,17 @@ class admin_controller implements admin_interface
 
 			'VERSION_NUMBER'		=> $this->functions->get_this_version(),
 		));
+	}
+
+	/**
+	* Set page url
+	*
+	* @param string $u_action Custom form action
+	* @return null
+	* @access public
+	*/
+	public function set_page_url($u_action)
+	{
+		$this->u_action = $u_action;
 	}
 }

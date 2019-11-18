@@ -48,8 +48,8 @@ class yml_formatter
 		// Add the language file
 		$this->language->add_lang('acp_extservicescheck', $this->functions->get_ext_namespace());
 
-		$handle 		= fopen($original_file, "r");
 		$formatted_file	= '';
+		$handle 		= fopen($original_file, "r");
 
 		if ($handle)
 		{

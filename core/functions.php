@@ -10,7 +10,9 @@
 namespace david63\extservicescheck\core;
 
 use phpbb\extension\manager;
+use phpbb\user;
 use phpbb\language\language;
+use phpbb\log\log;
 
 /**
 * functions
@@ -20,21 +22,31 @@ class functions
 	/** @var \phpbb\extension\manager */
 	protected $phpbb_extension_manager;
 
+	/** @var \phpbb\user */
+	protected $user;
+
 	/** @var \phpbb\language\language */
 	protected $language;
 
+	/** @var \phpbb\log\log */
+	protected $log;
+
 	/**
-	* Constructor for 33extcheck
+	* Constructor for functions
 	*
 	* @param \phpbb\extension\manager		$phpbb_extension_manager	Extension manager
+	*@param \phpbb\user						$user						User object
 	* @param \phpbb\language\language		$language					Language object
+	* @param \phpbb\log\log					$log						Log object
 	*
 	* @access public
 	*/
-	public function __construct(manager $phpbb_extension_manager, language $language)
+	public function __construct(manager $phpbb_extension_manager, user $user, language $language, log $log)
 	{
 		$this->ext_manager	= $phpbb_extension_manager;
+		$this->user			= $user;
 		$this->language		= $language;
+		$this->log			= $log;
 
 		$this->namespace	= __NAMESPACE__;
 	}
@@ -114,6 +126,7 @@ class functions
 			$ext_status = ($this->ext_manager->is_configured($name)) ? $ext_status : $this->language->lang('DORMANT');
 
 			$extension_meta_data[$name] = array(
+				'EXT_ENABLED'		=> $this->ext_manager->is_enabled($name),
 				'EXT_STATUS'		=> $ext_status,
 				'LOCATION'			=> $location,
 				'META_DISPLAY_NAME'	=> $meta_data['extra']['display-name'],
@@ -124,6 +137,20 @@ class functions
 		}
 
 		return $extension_meta_data;
+	}
+
+	/**
+	* Disable an extension
+	*
+	* @return null
+	* @access public
+	*/
+	public function extension_disable($ext_name)
+	{
+		while ($this->ext_manager->disable_step($ext_name));
+
+		// Add disable action to the admin log
+		$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_EXTN_DISABLE', time(), array($ext_name));
 	}
 
 	/**
