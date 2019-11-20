@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package Ext Services Check Extension
+* @package Extension .yml Check Extension
 * @copyright (c) 2019 david63
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
@@ -35,7 +35,7 @@ class functions
 	* Constructor for functions
 	*
 	* @param \phpbb\extension\manager		$phpbb_extension_manager	Extension manager
-	*@param \phpbb\user						$user						User object
+	* @param \phpbb\user					$user						User object
 	* @param \phpbb\language\language		$language					Language object
 	* @param \phpbb\log\log					$log						Log object
 	*
@@ -157,7 +157,7 @@ class functions
 	}
 
 	/**
-	* Sort helper for the table containing the metadata about the extensions.
+	* Sort helper for the array containing the metadata about the extensions.
 	*/
 	public function sort_extension_meta_data_table($val1, $val2)
 	{

@@ -2,13 +2,14 @@
 	"name": "david63/extservicescheck",
 	"type": "phpbb-extension",
 	"description": "Checks the syntax of the .yml files in extensions prior to phpBB 3.3.",
-	"version": "2.1.0-RC6",
-	"time": "2019-11-06",
+	"version": "2.1.0-RC7",
+	"time": "2019-11-20",
 	"keywords": [
 		"phpbb",
 		"extension",
 		"services",
 		"config",
+		"yml",
 		"phpBB 3.3"
 	],
 	"license": "GPL-2.0-only",

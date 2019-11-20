@@ -2,9 +2,11 @@
 
 <fieldset>
 	<legend>{{ lang('LEGEND') }}</legend>
-		{{ ERROR_EXPLAIN }}<br>
 		{{ OK_EXPLAIN }}<br>
+		{{ ERROR_EXPLAIN }}<br>
+		{{ EXTENSION_QUERY_EXPLAIN }}<br>
 		{{ FILE_QUERY_EXPLAIN }}<br>
+		{{ INVALID_FUTURE_EXPLAIN }}<br>
 		{{ DISABLE_EXPLAIN }}<br>
 		{{ FILE_EXPLAIN }}<br>
 		{{ FILE_OPEN_EXPLAIN }}
@@ -33,7 +35,9 @@
 					{% if 'error' in image_ary %}
 						<img src="{{ EXT_IMAGE_PATH }}/error.png" title="{{ lang('ICON_EXTN_ERROR') }}" />
 					{% elseif 'query' in image_ary %}
-						<img src="{{ EXT_IMAGE_PATH }}/query.png" title="{{ lang('ICON_EXTN_QUERY') }}" />
+						<img src="{{ EXT_IMAGE_PATH }}/query_extn.png" title="{{ lang('ICON_EXTN_QUERY') }}" />
+					{% elseif 'alert' in image_ary %}
+						<img src="{{ EXT_IMAGE_PATH }}/alert.png" title="{{ lang('ICON_EXTN_QUERY') }}" />
 					{% else %}
 						<img src="{{ EXT_IMAGE_PATH }}/ok.png" title="{{ lang('ICON_EXTN_OK') }}" />
 					{% endif %}
@@ -50,12 +54,14 @@
 				<div class="table-body-cell">
 					{% for files in row.file_data %}
 						{% if files.STATUS_IMAGE == 'query' %}
-							<img src="{{ EXT_IMAGE_PATH }}/query.png" title="{{ lang('ICON_FILE_QUERY') }}" />
+							<img src="{{ EXT_IMAGE_PATH }}/query_file.png" title="{{ lang('ICON_FILE_QUERY') }}" />
+						{% elseif files.STATUS_IMAGE == 'alert' %}
+							<img src="{{ EXT_IMAGE_PATH }}/alert.png" title="{{ lang('ICON_FILE_ALERT') }}" />
 						{% endif %}
 						{{ files.STATUS }}
 						{% if files.STATUS_IMAGE == 'error' %}
-							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files.png" title="{{ lang('ICON_FILE_CLOSED') }}" /></span>
-							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/files_open.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
+							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_open.png" title="{{ lang('ICON_FILE_CLOSED') }}" /></span>
+							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_close.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
 						{% endif %}
 						<br>
 					{% endfor %}

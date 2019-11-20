@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package Ext Services Check Extension
+* @package Extension .yml Check Extension
 * @copyright (c) 2019 david63
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
@@ -33,7 +33,7 @@ class admin_controller implements admin_interface
 	protected $yml_formatter;
 
 	/** @var string */
-	protected $ext_root_path;
+	protected $ext_images_path;
 
 	/** @var string Custom form action */
 	protected $u_action;
@@ -46,7 +46,7 @@ class admin_controller implements admin_interface
 	* @param \phpbb\language\language						$language			Language object
 	* @param \david63\extservicescheck\core\functions		functions			Functions for the extension
 	* @param \david63\extservicescheck\core\yml_formatter	yml_formatter		yml_formatter for the extension
-	* @param string											$ext_root_path		Path to this extension's root
+	* @param string											$ext_images_path	Path to this extension's images
 	*
 	* @return \david63\extservicescheck\controller\admin_controller
 	* @access public
@@ -62,7 +62,7 @@ class admin_controller implements admin_interface
 	}
 
 	/**
-	* Display the output for this extension
+	* Display the output from this extension
 	*
 	* @return null
 	* @access public
@@ -72,6 +72,7 @@ class admin_controller implements admin_interface
 		// Add the language file
 		$this->language->add_lang('acp_extservicescheck', $this->functions->get_ext_namespace());
 
+		// Get the variables
 		$disable 	= $this->request->variable('disable', '');
 		$ext_name	= $this->request->variable('ext_name', '');
 
@@ -132,8 +133,9 @@ class admin_controller implements admin_interface
 				// Now we can check the files
 				foreach ($yaml_files as $yml_file => $filename)
 				{
-					$ext_namespace = str_replace($vendor . '/', '', $ext_name);
 					// Check the namespace
+					$ext_namespace = str_replace($vendor . '/', '', $ext_name);
+
 					if (!preg_match('/^[a-zA-Z0-9\/]+$/', $ext_namespace) // Check for non alphnumeric characters
 						|| !ctype_alpha($ext_name[0]) // Check first character is alpha
 						|| !ctype_alpha($ext_namespace[0]))
@@ -182,7 +184,7 @@ class admin_controller implements admin_interface
 							'NEW_FILE'		=> $this->yml_formatter->yaml_format($filename),
 							'NEW_FILE_KEY'	=> rand(),
 
-							'OLD_FILE'		=> file_get_contents($filename),
+							'OLD_FILE'		=> $file_contents,
 
 							'STATUS'		=> $this->language->lang('CONFIG_FILE_FAIL', $yml_file),
 							'STATUS_IMAGE'	=> 'error',
@@ -190,15 +192,26 @@ class admin_controller implements admin_interface
 					}
 					else
 					{
+						// No problems found with this file
 						$this->template->assign_block_vars('ext_row.file_data', array(
 							'STATUS' 		=> $this->language->lang('CONFIG_FILE_PASS', $yml_file),
 							'STATUS_IMAGE'	=> 'ok',
 						));
 					};
 				}
+
+				// Is this namespace valid going foreward
+				if (preg_match('/[A-Z]/', $ext_name))
+				{
+					$this->template->assign_block_vars('ext_row.file_data', array(
+						'STATUS' 		=> $this->language->lang('INVALID_FUTURE', $ext_name),
+						'STATUS_IMAGE'	=> 'alert',
+					));
+				}
 			}
 			else
 			{
+				// There is no config directory for this extension
 				$this->template->assign_block_vars('ext_row.file_data', array(
 					'STATUS' 		=> $this->language->lang('NO_CONFIG_FILES'),
 					'STATUS_IMAGE'	=> 'ok',
@@ -206,24 +219,28 @@ class admin_controller implements admin_interface
 			}
 		}
 
-		$this->template->assign_var('EXT_IMAGE_PATH', $this->ext_images_path);
+		$this->template->assign_vars(array(
+			'DISABLE_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/disable.png" /> ' . $this->language->lang('DISABLE_EXPLAIN'),
+
+			'ERROR_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/error.png" /> ' . $this->language->lang('ERROR_EXPLAIN'),
+			'EXTENSION_QUERY_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/query_extn.png" /> ' . $this->language->lang('EXTENSION_QUERY_EXPLAIN'),
+			'EXT_IMAGE_PATH' 			=> $this->ext_images_path,
+
+			'FILE_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/compare_open.png" /> ' . $this->language->lang('FILE_EXPLAIN'),
+			'FILE_OPEN_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/compare_close.png" /> ' . $this->language->lang('FILE_OPEN_EXPLAIN'),
+			'FILE_QUERY_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/query_file.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
+
+			'INVALID_FUTURE_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/alert.png" /> ' . $this->language->lang('INVALID_FUTURE_EXPLAIN'),
+
+			'OK_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/ok.png" /> ' . $this->language->lang('OK_EXPLAIN'),
+		));
 
 		// Template vars for header panel
 		$this->template->assign_vars(array(
-			'DISABLE_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/disable.png" /> ' . $this->language->lang('DISABLE_EXPLAIN'),
-
-			'ERROR_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/error.png" /> ' . $this->language->lang('ERROR_EXPLAIN'),
-
-			'FILE_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/files.png" /> ' . $this->language->lang('FILE_EXPLAIN'),
-			'FILE_OPEN_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/files_open.png" /> ' . $this->language->lang('FILE_OPEN_EXPLAIN'),
-			'FILE_QUERY_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/query.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
-
 			'HEAD_TITLE'			=> $this->language->lang('EXT_SERVICES_CHECK'),
 			'HEAD_DESCRIPTION'		=> $this->language->lang('EXT_SERVICES_CHECK_EXPLAIN'),
 
 			'NAMESPACE'				=> $this->functions->get_ext_namespace('twig'),
-
-			'OK_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/ok.png" /> ' . $this->language->lang('OK_EXPLAIN'),
 
 			'S_VERSION_CHECK'		=> $this->functions->version_check(),
 

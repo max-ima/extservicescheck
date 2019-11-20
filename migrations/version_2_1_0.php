@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package Ext Services Check Extension
+* @package Extension .yml Check Extension
 * @copyright (c) 2019 david63
 * @license GNU General Public License, version 2 (GPL-2.0)
 *

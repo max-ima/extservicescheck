@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package Ext Services Check Extension
+* @package Extension .yml Check Extension
 * @copyright (c) 2019 david63
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
@@ -44,32 +44,37 @@ $lang = array_merge($lang, array(
 	'COPY_CLIPBOARD'				=> 'Copy to clipboard',
 
 	'DISABLED'						=> 'Disabled',
-	'DISABLE_EXPLAIN'				=> 'This allows you to disable this extension.',
+	'DISABLE_EXPLAIN'				=> 'Clicking here will disable this extension.',
 	'DORMANT'						=> 'Dormant',
 
 	'ENABLED'						=> 'Enabled',
-	'ERROR_EXPLAIN'					=> 'Indicates an extension where one, or more, of the config files appears to contain invalid syntax.',
+	'ERROR_EXPLAIN'					=> 'Indicates an extension where one, or more, of the .yml files appears to contain invalid syntax.',
 	'EXTENSION_NAME'				=> 'Extension name',
+	'EXTENSION_QUERY_EXPLAIN'		=> 'There is a query with this extension.',
 	'EXT_SERVICES_CHECK'			=> 'Extensions .yml Files Syntax Check',
-	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of all of the <em>.yml</em> files, for all of the extensions on this board, for compatibility with phpBB 3.3.<br><br>The results from this extension will <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>.yml</em> files.<br><br>Note: A “Dormant” extension is one that is in the <em>ext</em> folder but is neither Enabled nor Disabled.',
+	'EXT_SERVICES_CHECK_EXPLAIN'	=> 'This extension will check the syntax of all of the <em>.yml</em> files, for all of the extensions on this board, for compatibility with phpBB 3.3.<br>A check will also be made on the extension’s namespace for current and future compatiity.
+  <br><br>The results from this extension will <strong>NOT</strong> guarantee that the extension is compatible in any other way with phpBB 3.3 nor does it guarantee that there are no other issues with the <em>.yml</em> files.<br><br>Note: A “Dormant” extension is one that is in the <em>ext</em> folder but is neither Enabled nor Disabled.',
 	'EXT_STATUS'					=> 'Extension status',
 
 	'FILE_EMPTY'					=> 'The <em>%s</em> file is empty',
 	'FILE_ERROR'					=> 'The following error was detected when accessing %1$s<br>Error: %2$s',
-	'FILE_EXPLAIN'					=> 'Clicking on this icon will display the “before” and “after” of the file formatting.',
+	'FILE_EXPLAIN'					=> 'Clicking here will open the “before” and “after” of the file formatting.',
 	'FILE_NOT_ACCESSIBLE'			=> 'The <em>%s</em> file is not accessible',
 	'FILE_NOT_READABLE'				=> 'The <em>%s</em> file is not readable',
-	'FILE_OPEN_EXPLAIN'				=> 'This changes to show the files currently open.',
-	'FILE_QUERY_EXPLAIN'			=> 'There is a query with this file/extension.',
+	'FILE_OPEN_EXPLAIN'				=> 'Clicking here will close the “before” and “after” of the file formatting.',
+	'FILE_QUERY_EXPLAIN'			=> 'There is a query with this file.',
 
 	'ICON_EXTN_DISABLE'				=> 'Disable this extension',
 	'ICON_EXTN_ERROR'				=> 'This extension appears to have errors',
 	'ICON_EXTN_OK'					=> 'This extension appers to be correct',
 	'ICON_EXTN_QUERY'				=> 'There is a query with one, or more, files in this extension',
+	'ICON_FILE_ALERT'				=> 'Future namespace problem',
 	'ICON_FILE_CLOSED'				=> 'Click to show files',
 	'ICON_FILE_OPEN'				=> 'Click to close files',
 	'ICON_FILE_QUERY'				=> 'There is a query with this file',
 	'INVALID_CHRACTERS'				=> 'The namespace <em>%s</em> contains invalid characters',
+	'INVALID_FUTURE'				=> 'The namespace <em>%s</em> will be invalid in a future version',
+	'INVALID_FUTURE_EXPLAIN'		=> 'The namespace of this extension will become invalid in a future version of phpBB.',
 
 	'LEGEND'						=> 'Legend',
 

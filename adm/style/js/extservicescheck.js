@@ -1,4 +1,7 @@
-jQuery(function() {
+;(function($, document)
+{
+	'use strict';
+
 	$(document).ready(function()
 	{
 		$('.file_hide').hide();
@@ -34,4 +37,4 @@ jQuery(function() {
 
 		return false;
 	});
-});
+})(jQuery, document);

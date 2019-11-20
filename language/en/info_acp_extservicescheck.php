@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package Ext Services Check Extension
+* @package Extension .yml Check Extension
 * @copyright (c) 2019 david63
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
@@ -37,7 +37,7 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'EXT_SERVICES_CHECK'	=> 'Extensions .yml check',
+	'EXT_YML_CHECK'		=> 'Extensions .yml check',
 
-	'LOG_EXTN_DISABLE'		=> '<strong>Extension disabled by “Extensions .yml check”</strong><br />» %s',
+	'LOG_EXTN_DISABLE'	=> '<strong>Extension disabled by “Extensions .yml check”</strong><br />» %s',
 ));
