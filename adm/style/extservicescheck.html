@@ -53,17 +53,18 @@
 				</div>
 				<div class="table-body-cell">
 					{% for files in row.file_data %}
-						{% if files.STATUS_IMAGE == 'query' %}
+						{% if files.STATUS_IMAGE == 'error' %}
+							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_open.png" title="{{ lang('ICON_FILE_CLOSED') }}" /></span>
+							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_close.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
+						{% elseif files.STATUS_IMAGE == 'query' %}
 							<img src="{{ EXT_IMAGE_PATH }}/query_file.png" title="{{ lang('ICON_FILE_QUERY') }}" />
 						{% elseif files.STATUS_IMAGE == 'alert' %}
 							<img src="{{ EXT_IMAGE_PATH }}/alert.png" title="{{ lang('ICON_FILE_ALERT') }}" />
 						{% endif %}
 						{{ files.STATUS }}
-						{% if files.STATUS_IMAGE == 'error' %}
-							<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_open.png" title="{{ lang('ICON_FILE_CLOSED') }}" /></span>
-							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_close.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
+						{% if not files.last %}
+							<br>
 						{% endif %}
-						<br>
 					{% endfor %}
 				</div>
 			</div>

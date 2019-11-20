@@ -39,7 +39,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'COMMON_ERRORS'					=> 'Common errors',
 	'COMMON_ERRORS_EXPLAIN'			=> 'Some of the common reasons for the errors reported above may be due to, but not limited to, the following reasons:<hr>- A single quote is missing when preceeding either “@” or “%”<br>- “pattern” has been replaced with “path”<br>- “scope: prototype” has become “shared: false”<br>- “scope: container” has become “shared: true”<br>- “scope: request” has also been changed but needs further checking as to what the repacement is”<br>- An extension’s namespace will be reported as invalid if it contains an underscore.<hr>If in doubt about what to change, or how to change it, then firstly check to see if there is an updated version of the extension available and if not then contact the extension developer in the support topic for the extension.',
-	'CONFIG_FILE_FAIL'				=> '<strong>»» The <em>%s</em> file is invalid</strong>',
+	'CONFIG_FILE_FAIL'				=> '<strong>The <em>%s</em> file is invalid</strong>',
 	'CONFIG_FILE_PASS'				=> 'The <em>%s</em> file is valid',
 	'COPY_CLIPBOARD'				=> 'Copy to clipboard',
 
