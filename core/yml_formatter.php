@@ -59,39 +59,48 @@ class yml_formatter
 
 				if (preg_match("/\-\ \@/", $line))
 				{
-					$formatted_file .=  substr_replace(preg_replace("/\-\ \@/", "- '@", $line), "'", $length , 0);
+					$temp_line		 =  substr_replace(preg_replace("/\-\ \@/", "- '@", $line), "'", $length , 0);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (preg_match("/\-\ \%/", $line))
 				{
-					$formatted_file .= substr_replace(preg_replace("/\-\ \%/", "- '%", $line), "'", $length , 0);
+					$temp_line 		 = substr_replace(preg_replace("/\-\ \%/", "- '%", $line), "'", $length , 0);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (preg_match("/\:\ \%/", $line))
 				{
-					$formatted_file .= substr_replace(preg_replace("/\:\ \%/", ": '%", $line), "'", $length , 0);
+					$temp_line 		 = substr_replace(preg_replace("/\:\ \%/", ": '%", $line), "'", $length , 0);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (preg_match("/\[\@/", $line))
 				{
-					$formatted_file .= substr_replace(preg_replace("/\[\@/", "['@", $line), "'", ($length - 2) , 0);
+					$temp_line 		 = substr_replace(preg_replace("/\[\@/", "['@", $line), "'", ($length - 2) , 0);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (preg_match("/\[\%/", $line))
 				{
-					$formatted_file .= substr_replace(preg_replace("/\[\%/", "['%", $line), "'", ($length - 2) , 0);
+					$temp_line 		 = substr_replace(preg_replace("/\[\%/", "['%", $line), "'", ($length - 2) , 0);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (strstr($line, 'pattern:'))
 				{
-					$formatted_file .= preg_replace('/pattern/', 'path', $line);
+					$temp_line 		 = preg_replace('/pattern/', 'path', $line);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (strstr($line, 'scope: prototype'))
 				{
-					$formatted_file .= preg_replace('/scope: prototype/', 'shared: false', $line);
+					$temp_line 		 = preg_replace('/scope: prototype/', 'shared: false', $line);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (strstr($line, 'scope: container'))
 				{
-					$formatted_file .= preg_replace('/scope: container/', 'shared: true', $line);
+					$temp_line 		 = preg_replace('/scope: container/', 'shared: true', $line);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else if (strstr($line, 'scope: request'))
 				{
-					$formatted_file .= substr_replace($line, $this->language->lang('REQUIRES_ATTENTION'), ($length - 1), 0);
+					$temp_line 		 = substr_replace($line, $this->language->lang('REQUIRES_ATTENTION'), ($length - 1), 0);
+					$formatted_file .= '<span class="compare-highlight">' . $temp_line . '</span>';
 				}
 				else
 				{

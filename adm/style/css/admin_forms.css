@@ -97,6 +97,10 @@ a.copy {
 	margin-top: 5px;
 }
 
+.compare-highlight {
+	background-color: #FFFF33;
+}
+
 
 /* ----------
 Radio buttons
