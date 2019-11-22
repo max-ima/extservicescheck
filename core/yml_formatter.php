@@ -48,12 +48,12 @@ class yml_formatter
 		// Add the language file
 		$this->language->add_lang('acp_extservicescheck', $this->functions->get_ext_namespace());
 
-		$formatted_file	= '';
-		$handle 		= fopen($original_file, "r");
+		$formatted_file		= '';
+		$unformatted_file	= fopen($original_file, "r");
 
-		if ($handle)
+		if ($unformatted_file)
 		{
-			while (($line = fgets($handle)) !== false)
+			while (($line = fgets($unformatted_file)) !== false)
 			{
 				$length	= strlen($line);
 
@@ -107,7 +107,7 @@ class yml_formatter
 					$formatted_file .= $line;
 				}
 			}
-			fclose($handle);
+			fclose($unformatted_file);
 
 			return $formatted_file;
 		}

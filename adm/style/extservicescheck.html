@@ -3,13 +3,21 @@
 <fieldset>
 	<legend>{{ lang('LEGEND') }}</legend>
 		{{ OK_EXPLAIN }}<br>
-		{{ ERROR_EXPLAIN }}<br>
-		{{ EXTENSION_QUERY_EXPLAIN }}<br>
-		{{ FILE_QUERY_EXPLAIN }}<br>
-		{{ INVALID_FUTURE_EXPLAIN }}<br>
-		{{ DISABLE_EXPLAIN }}<br>
-		{{ FILE_EXPLAIN }}<br>
-		{{ FILE_OPEN_EXPLAIN }}
+		{% if S_LEGEND_ERROR %}
+			{{ ERROR_EXPLAIN }}<br>
+		{% endif %}
+		{% if S_LEGEND_QUERY %}
+			{{ EXTENSION_QUERY_EXPLAIN }}<br>
+			{{ FILE_QUERY_EXPLAIN }}<br>
+		{% endif %}
+		{% if S_LEGEND_ALERT %}
+			{{ INVALID_FUTURE_EXPLAIN }}<br>
+		{% endif %}
+		{% if S_LEGEND_ERROR %}
+			{{ DISABLE_EXPLAIN }}<br>
+			{{ FILE_EXPLAIN }}<br>
+			{{ FILE_OPEN_EXPLAIN }}
+		{% endif %}
 </fieldset>
 
 <div class="table">
@@ -29,6 +37,7 @@
 			{% for files in row.file_data %}
 				{% set image_ary = image_ary|merge([files.STATUS_IMAGE]) %}
 			{% endfor %}
+			
 			{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
 				<div class="table-body-cell-tiny">
 					{# Find the image data in the array #}

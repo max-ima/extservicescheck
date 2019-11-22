@@ -82,6 +82,8 @@ class admin_controller implements admin_interface
 			$this->functions->extension_disable($ext_name);
 		}
 
+		$legend_error = $legend_query = $legend_alert = false;
+
 		// Get an array of the extensions and sort into alphbetical order
 		$extension_meta_data = $this->functions->extension_meta_data();
 		uasort($extension_meta_data, array($this->functions, 'sort_extension_meta_data_table'));
@@ -140,6 +142,8 @@ class admin_controller implements admin_interface
 						|| !ctype_alpha($ext_name[0]) // Check first character is alpha
 						|| !ctype_alpha($ext_namespace[0]))
 					{
+						$legend_query = true;
+
 						$this->template->assign_block_vars('ext_row.file_data', array(
 							'STATUS' 		=> $this->language->lang('INVALID_CHRACTERS', $ext_name),
 							'STATUS_IMAGE'	=> 'query',
@@ -149,6 +153,8 @@ class admin_controller implements admin_interface
 					// Check that the file is accessible
 					if (!is_readable($filename))
 					{
+						$legend_query = true;
+
 						$this->template->assign_block_vars('ext_row.file_data', array(
 							'STATUS' 		=> $this->language->lang('FILE_NOT_READABLE', $yml_file),
 							'STATUS_IMAGE'	=> 'query',
@@ -158,6 +164,8 @@ class admin_controller implements admin_interface
 					{
 						if (!empty($file_contents))
 						{
+							$legend_query = true;
+
 							$this->template->assign_block_vars('ext_row.file_data', array(
 								'STATUS' 		=> $this->language->lang('FILE_NOT_ACCESSIBLE', $yml_file),
 								'STATUS_IMAGE'	=> 'query',
@@ -165,6 +173,8 @@ class admin_controller implements admin_interface
 						}
 						else
 						{
+							$legend_query = true;
+							
 							$this->template->assign_block_vars('ext_row.file_data', array(
 								'STATUS' 		=> $this->language->lang('FILE_EMPTY', $yml_file),
 								'STATUS_IMAGE'	=> 'query',
@@ -177,6 +187,8 @@ class admin_controller implements admin_interface
 						|| strstr($file_contents, 'scope: container')
 						|| strstr($file_contents, 'scope: request'))
 					{
+						$legend_error = true;
+
 						$this->template->assign_block_vars('ext_row.file_data', array(
 							// Create a unique key for the js script
 							'FILE_KEY'		=> rand(),
@@ -203,6 +215,8 @@ class admin_controller implements admin_interface
 				// Is this namespace valid going foreward
 				if (preg_match('/[A-Z]/', $ext_name))
 				{
+					$legend_alert = true;
+
 					$this->template->assign_block_vars('ext_row.file_data', array(
 						'STATUS' 		=> $this->language->lang('INVALID_FUTURE', $ext_name),
 						'STATUS_IMAGE'	=> 'alert',
@@ -233,6 +247,10 @@ class admin_controller implements admin_interface
 			'INVALID_FUTURE_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/alert.png" /> ' . $this->language->lang('INVALID_FUTURE_EXPLAIN'),
 
 			'OK_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/ok.png" /> ' . $this->language->lang('OK_EXPLAIN'),
+
+			'S_LEGEND_ALERT'			=> $legend_alert,
+			'S_LEGEND_ERROR'			=> $legend_error,
+			'S_LEGEND_QUERY'			=> $legend_query,
 		));
 
 		// Template vars for header panel
