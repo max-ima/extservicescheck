@@ -8,6 +8,8 @@ Checks the syntax of the .yml files in extensions prior to phpBB 3.3.
 [![Latest Unstable Version](https://poser.pugx.org/david63/extservicescheck/v/unstable)](https://packagist.org/packages/david63/extservicescheck)
 [![Total Downloads](https://poser.pugx.org/david63/extservicescheck/downloads)](https://packagist.org/packages/david63/extservicescheck)
 
+![Screenshot](extservicescheck.jpg)
+
 ## Minimum Requirements
 * phpBB 3.2.0
 * PHP 5.4
