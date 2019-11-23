@@ -174,7 +174,7 @@ class admin_controller implements admin_interface
 						else
 						{
 							$legend_query = true;
-							
+
 							$this->template->assign_block_vars('ext_row.file_data', array(
 								'STATUS' 		=> $this->language->lang('FILE_EMPTY', $yml_file),
 								'STATUS_IMAGE'	=> 'query',
