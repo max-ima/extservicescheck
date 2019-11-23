@@ -10,9 +10,6 @@
 			{{ EXTENSION_QUERY_EXPLAIN }}<br>
 			{{ FILE_QUERY_EXPLAIN }}<br>
 		{% endif %}
-		{% if S_LEGEND_ALERT %}
-			{{ INVALID_FUTURE_EXPLAIN }}<br>
-		{% endif %}
 		{% if S_LEGEND_ERROR %}
 			{{ DISABLE_EXPLAIN }}<br>
 			{{ FILE_EXPLAIN }}<br>
@@ -37,7 +34,7 @@
 			{% for files in row.file_data %}
 				{% set image_ary = image_ary|merge([files.STATUS_IMAGE]) %}
 			{% endfor %}
-			
+
 			{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
 				<div class="table-body-cell-tiny">
 					{# Find the image data in the array #}
@@ -67,8 +64,6 @@
 							<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_close.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
 						{% elseif files.STATUS_IMAGE == 'query' %}
 							<img src="{{ EXT_IMAGE_PATH }}/query_file.png" title="{{ lang('ICON_FILE_QUERY') }}" />
-						{% elseif files.STATUS_IMAGE == 'alert' %}
-							<img src="{{ EXT_IMAGE_PATH }}/alert.png" title="{{ lang('ICON_FILE_ALERT') }}" />
 						{% endif %}
 						{{ files.STATUS }}
 						{% if not files.last %}

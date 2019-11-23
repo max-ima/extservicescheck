@@ -68,13 +68,10 @@ $lang = array_merge($lang, array(
 	'ICON_EXTN_ERROR'				=> 'This extension appears to have errors',
 	'ICON_EXTN_OK'					=> 'This extension appers to be correct',
 	'ICON_EXTN_QUERY'				=> 'There is a query with one, or more, files in this extension',
-	'ICON_FILE_ALERT'				=> 'Future possible namespace problem',
 	'ICON_FILE_CLOSED'				=> 'Click to show files',
 	'ICON_FILE_OPEN'				=> 'Click to close files',
 	'ICON_FILE_QUERY'				=> 'There is a query with this file',
 	'INVALID_CHRACTERS'				=> 'The namespace <em>%s</em> contains invalid characters',
-	'INVALID_FUTURE'				=> 'The namespace <em>%s</em> may become invalid in a future version',
-	'INVALID_FUTURE_EXPLAIN'		=> 'The namespace of this extension may become invalid in a future version of phpBB.',
 
 	'LEGEND'						=> 'Legend',
 

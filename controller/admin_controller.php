@@ -211,17 +211,6 @@ class admin_controller implements admin_interface
 						));
 					};
 				}
-
-				// Is this namespace valid going foreward
-				if (preg_match('/[A-Z]/', $ext_name))
-				{
-					$legend_alert = true;
-
-					$this->template->assign_block_vars('ext_row.file_data', array(
-						'STATUS' 		=> $this->language->lang('INVALID_FUTURE', $ext_name),
-						'STATUS_IMAGE'	=> 'alert',
-					));
-				}
 			}
 			else
 			{
@@ -243,8 +232,6 @@ class admin_controller implements admin_interface
 			'FILE_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/compare_open.png" /> ' . $this->language->lang('FILE_EXPLAIN'),
 			'FILE_OPEN_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/compare_close.png" /> ' . $this->language->lang('FILE_OPEN_EXPLAIN'),
 			'FILE_QUERY_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/query_file.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
-
-			'INVALID_FUTURE_EXPLAIN'	=> '<img src="' . $this->ext_images_path . '/alert.png" /> ' . $this->language->lang('INVALID_FUTURE_EXPLAIN'),
 
 			'OK_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/ok.png" /> ' . $this->language->lang('OK_EXPLAIN'),
 
