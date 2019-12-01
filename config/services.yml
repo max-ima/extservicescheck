@@ -13,7 +13,7 @@ services:
         class: david63\extservicescheck\core\functions
         arguments:
             - '@ext.manager'
-            - '@user'			
+            - '@user'
             - '@language'
             - '@log'
 
