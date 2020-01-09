@@ -116,18 +116,22 @@ class admin_controller implements admin_interface
 				// Create an array of all config folder(s) & files
 				foreach ($files as $filename)
 				{
-					// Is this a file or dir?
-					if (strpos($filename, '.'))
+					// Ignore any .htaccess files (which should not be there!)
+					if ($filename != '.htaccess')
 					{
-						$yaml_files[$filename] = $config_dir . $filename;
-					}
-					else
-					{
-						$sub_files = array_diff(scandir($config_dir . $filename), array('..', '.'));
-
-						foreach ($sub_files as $sub_filename)
+						// Is this a file or dir?
+						if (strpos($filename, '.'))
 						{
-							$yaml_files[$sub_filename] = $config_dir . $filename . '/' . $sub_filename;
+							$yaml_files[$filename] = $config_dir . $filename;
+						}
+						else
+						{
+							$sub_files = array_diff(scandir($config_dir . $filename), array('..', '.'));
+
+							foreach ($sub_files as $sub_filename)
+							{
+								$yaml_files[$sub_filename] = $config_dir . $filename . '/' . $sub_filename;
+							}
 						}
 					}
 				}
