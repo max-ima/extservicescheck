@@ -11,7 +11,7 @@
 set -e
 set -x
 
-NOTESTS=$2
+NOTESTS=$1
 
 if [ "$NOTESTS" == "1" ]
 then
