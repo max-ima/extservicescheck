@@ -34,6 +34,25 @@ Buttons
 	top: 0.1em;
 }
 
+.large-button {
+    color: #3300CC;
+    padding: 20px 30px 20px;
+    cursor: pointer;
+    font-size: 20px;
+	background: linear-gradient(to bottom, #6B6B6B 5%, #bab1ba 100%);
+	background-color: #6B6B6B;
+	border-radius: 0.5em;
+	display: inline-block;
+}
+
+.large-button-text {
+	font-size: 12px;
+}
+
+.large-button:hover {
+    	background-color: #4169E1;
+}
+
 
 /* ---------
 Selects
@@ -62,7 +81,7 @@ select, #sk, #sd, #fc, #fb {
 /* ---------
 Text
 --------- */
-.textbox, .textbox2, .inputbox {
+.textbox, .textbox2, .textarea, .inputbox {
     padding: 0.1em 0.625em;
     border: 1px solid #BFBFBF;
     height: 2em;
@@ -71,7 +90,7 @@ Text
     outline: 0;
 }
 
-.textbox, .inputbox {
+.textbox, .inputbox, .textarea {
     box-shadow: 0.1em 0.1em 0 0 #FFF, 0.5em 0.5em 2.5em 0.2em #BBB inset;
 }
 
@@ -127,6 +146,7 @@ input[type=radio] + label {
     background-repeat: repeat-x;
     border: 1px solid #ccc;
     border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     border-bottom-color: #b3b3b3;
 	border-radius: 0.5em;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -270,7 +290,7 @@ label {
 /* ---------
 Pagination
 --------- */
-.pagination li a, .pagnation li span, li .pagination li a, li .pagnation li span, .pagination li.active span, .pagination .ellipsis span {
+.pagination li a, .pagination li span, li .pagination li a, li .pagination li span, .pagination li.active span, .pagination .ellipsis span {
 	box-shadow: 0.15em 0.2em 0 0 #899599;
 	background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
 	background-color: #ededed;
@@ -290,7 +310,7 @@ Pagination
 /* ---------
 Panels
 --------- */
-.head-panel, .head-panel-error, .head-panel-version {
+.head-panel, .head-panel-error, .head-panel-version, .head-panel-noversion {
 	width: auto;
 	height: auto;
 	border-radius: 1em;
@@ -307,7 +327,7 @@ Panels
 	background-color: #ffffff;
 }
 
-.head-panel-error, .head-panel-version {
+.head-panel-error, .head-panel-version, .head-panel-noversion {
 	color: #FFFFFF;
 	text-align: center;
 }
@@ -318,6 +338,10 @@ Panels
 
 .head-panel-version {
 	background-color: #228822;
+}
+
+.head-panel-noversion {
+	background-color: #546CED;
 }
 
 .head-title {
@@ -331,6 +355,13 @@ Panels
 	margin-bottom: 0.7em;
 	line-height: 1.40em;
 	font-size: 0.90em;
+}
+
+.head-description .download {
+	color: #FFFF66;
+	text-decoration: none;
+	font-size: 1.2em;
+	font-weight: bold;
 }
 
 fieldset {
@@ -391,7 +422,6 @@ Tables
 
 .table-header {
 	display: table-header-group;
-	width: 100%;
 }
 
 .table-header-cell, .table-header-cell-left, .table-header-cell-narrow-left, .table-header-cell-right, .table-header-cell-narrow, .table-header-cell-wide, .table-header-cell-select {
@@ -443,7 +473,7 @@ Tables
 }
 
 .table-header-cell-narrow {
-	width: 100px;
+	width: 200px;
 }
 
 .table-header-cell-wide {
@@ -482,21 +512,21 @@ Tables
 	width: auto !important;
 	min-width: inherit;
 	background-color: #F9F9F9;
-	margin: auto;
 	display: table-row;
 	position: relative;
 }
 
 .table-row-span {
-	width: 100% !important;
 	display: none;
+	width: 700px;
 }
 
-.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-tiny {
+.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-right {
 	display: table-cell;
 	text-align: left;
+	vertical-align: middle;
 	font-size: 0.85em;
-	padding: 0 0 4px 5px;
+	padding: 4px 0 4px 5px;
 	line-height: 1.20em;
 	border-right: 1px solid #FFFFFF;
 }
@@ -507,7 +537,8 @@ Tables
 
 .table-body-cell-bold {
 	font-weight: bold;
-	font-size: 0.9em;
+	text-align: right;
+	padding: 4px 5px 4px 0;
 }
 
 .table-body-cell-span {
@@ -516,7 +547,8 @@ Tables
 }
 
 .table-body-cell-narrow {
-	width: 100px;
+	width: 200px;
+	vertical-align: top;
 }
 
 .table-body-cell-wide {
@@ -525,6 +557,11 @@ Tables
 
 .table-body-cell-centre {
 	text-align: center;
+}
+
+.table-body-cell-right {
+	text-align: right;
+	padding: 4px 5px 4px 0;
 }
 
 .table-body-cell-tiny {
@@ -638,16 +675,17 @@ PayPal button
 	font-style: italic;
 	font-weight: bold;
 	font-size: 22px;
-	box-shadow: 0.2em 0.2em 0em 0em #899599;
+	box-shadow: 0.2em 0.2em 0 0 #899599;
 }
 
 .paypal_btn:hover {
+	background: #fffbf3;
 	background: linear-gradient(to bottom, #fffbf3 5%, #ffca76 100%);
 }
 
 .paypal_btn:before {
 	content: "\f1ed";
-	font-family: fontawesome;
+	font-family: FontAwesome;
 	padding-right: 10px;
 	font-size: 24px;
 }

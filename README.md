@@ -7,6 +7,10 @@ Checks the syntax of the .yml files in extensions prior to phpBB 3.3.
 [![Latest Stable Version](https://poser.pugx.org/david63/extservicescheck/v/stable)](https://packagist.org/packages/david63/extservicescheck)
 [![Latest Unstable Version](https://poser.pugx.org/david63/extservicescheck/v/unstable)](https://packagist.org/packages/david63/extservicescheck)
 [![Total Downloads](https://poser.pugx.org/david63/extservicescheck/downloads)](https://packagist.org/packages/david63/extservicescheck)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/75aea1a674124837815c339c79937c62)](https://www.codacy.com/manual/david63/extservicescheck?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=david63/extservicescheck&amp;utm_campaign=Badge_Grade)
+
+ [![Compatible](https://img.shields.io/badge/compatible-phpBB:3.2.x-blue.svg)](https://shields.io/)
+ [![Compatible](https://img.shields.io/badge/compatible-phpBB:3.3.x-blue.svg)](https://shields.io/)
 
 ![Screenshot](extservicescheck.jpg)
 
