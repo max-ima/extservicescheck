@@ -55,7 +55,7 @@ class yml_formatter
 		{
 			while (($line = fgets($unformatted_file)) !== false)
 			{
-				$length	= strlen($line);
+				$length	= feof($unformatted_file) ? strlen($line) + 1 : strlen($line);
 
 				if (preg_match("/\-\ \@/", $line))
 				{
