@@ -473,7 +473,7 @@ Tables
 }
 
 .table-header-cell-narrow {
-	width: 200px;
+	width: 100px;
 }
 
 .table-header-cell-wide {
@@ -521,7 +521,7 @@ Tables
 	width: 700px;
 }
 
-.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-right {
+.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-right, .table-body-cell-tiny {
 	display: table-cell;
 	text-align: left;
 	vertical-align: middle;
@@ -537,7 +537,6 @@ Tables
 
 .table-body-cell-bold {
 	font-weight: bold;
-	text-align: right;
 	padding: 4px 5px 4px 0;
 }
 
@@ -547,7 +546,7 @@ Tables
 }
 
 .table-body-cell-narrow {
-	width: 200px;
+	width: 100px;
 	vertical-align: top;
 }
 
