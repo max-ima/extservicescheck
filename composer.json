@@ -1,9 +1,9 @@
 {
 	"name": "david63/extservicescheck",
 	"type": "phpbb-extension",
-	"description": "Checks the syntax of the .yml files in extensions prior to phpBB 3.3.",
-	"version": "2.1.0-RC8",
-	"time": "2020-01-09",
+	"description": "Checks the syntax of the .yml files in extensions.",
+	"version": "2.1.1-RC1",
+	"time": "2020-12-09",
 	"keywords": [
 		"phpbb",
 		"extension",
@@ -24,9 +24,9 @@
         "composer/installers": "~1.0"
     },
 	"extra": {
-		"display-name": "[**] Extensions .yml check",
+		"display-name": "Extensions .yml check",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.2.0"
+			"phpbb/phpbb": ">=3.2.0,<4.0.0@dev"
 		},
 		"version-check": {
         	"host": "version.phpbbdev.space",

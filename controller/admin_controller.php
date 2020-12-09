@@ -15,7 +15,7 @@ use phpbb\language\language;
 use david63\extservicescheck\core\functions;
 use david63\extservicescheck\core\yml_formatter;
 
-class admin_controller implements admin_interface
+class admin_controller
 {
 	/** @var \phpbb\request\request */
 	protected $request;
@@ -70,8 +70,7 @@ class admin_controller implements admin_interface
 	public function display_output()
 	{
 		// Add the language files
-		$this->language->add_lang('acp_extservicescheck', $this->functions->get_ext_namespace());
-		$this->language->add_lang('acp_common', $this->functions->get_ext_namespace());
+		$this->language->add_lang(array('acp_extservicescheck', 'acp_common'), $this->functions->get_ext_namespace());
 
 		// Get the variables
 		$disable 	= $this->request->variable('disable', '');
@@ -85,7 +84,7 @@ class admin_controller implements admin_interface
 			$this->functions->extension_disable($ext_name);
 		}
 
-		$legend_error = $legend_query = $legend_alert = false;
+		$legend_alert = $legend_error = $legend_issue = $legend_query = false;
 
 		// Get an array of the extensions and sort into alphbetical order
 		$extension_meta_data = $this->functions->extension_meta_data();
@@ -112,7 +111,7 @@ class admin_controller implements admin_interface
 
 			if (is_dir($config_dir))
 			{
-				$yaml_files	= array();
+				$yaml_files	= [];
 				$status 	= '';
 				$files 		= array_diff(scandir($config_dir), array('..', '.'));
 
@@ -145,7 +144,7 @@ class admin_controller implements admin_interface
 					// Check the namespace
 					$ext_namespace = str_replace($vendor . '/', '', $ext_name);
 
-					if (!preg_match('/^[a-zA-Z0-9\/]+$/', $ext_namespace) // Check for non alphnumeric characters
+					if (!preg_match('/^[a-z0-9\/]+$/', $ext_namespace) // Check for non alphnumeric or lowercase characters
 						|| !ctype_alpha($ext_name[0]) // Check first character is alpha
 						|| !ctype_alpha($ext_namespace[0]))
 					{
@@ -200,13 +199,30 @@ class admin_controller implements admin_interface
 							// Create a unique key for the js script
 							'FILE_KEY'		=> rand(),
 
-							'NEW_FILE'		=> $this->yml_formatter->yaml_format($filename),
+							'NEW_FILE'		=> $this->yml_formatter->yaml_format($filename, $yml_file),
 							'NEW_FILE_KEY'	=> rand(),
 
 							'OLD_FILE'		=> $file_contents,
 
 							'STATUS'		=> $this->language->lang('CONFIG_FILE_FAIL', $yml_file),
 							'STATUS_IMAGE'	=> 'error',
+						));
+					}
+					else if ($yml_file == 'services.yml' && !strstr($file_contents, 'public:')) // Check for public
+					{
+						$legend_issue = true;
+
+						$this->template->assign_block_vars('ext_row.file_data', array(
+							// Create a unique key for the js script
+							'FILE_KEY'		=> rand(),
+
+							'NEW_FILE'		=> $this->yml_formatter->yaml_format($filename, $yml_file),
+							'NEW_FILE_KEY'	=> rand(),
+
+							'OLD_FILE'		=> $file_contents,
+
+							'STATUS' 		=> $this->language->lang('NOT_PUBLIC', $yml_file),
+							'STATUS_IMAGE'	=> 'issue',
 						));
 					}
 					else
@@ -240,15 +256,21 @@ class admin_controller implements admin_interface
 			'FILE_OPEN_EXPLAIN'			=> '<img src="' . $this->ext_images_path . '/compare_close.png" /> ' . $this->language->lang('FILE_OPEN_EXPLAIN'),
 			'FILE_QUERY_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/query_file.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
 
+			'ISSUE_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/issue.png" /> ' . $this->language->lang('ISSUE_EXPLAIN'),
+
 			'OK_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/ok.png" /> ' . $this->language->lang('OK_EXPLAIN'),
 
 			'S_LEGEND_ALERT'			=> $legend_alert,
 			'S_LEGEND_ERROR'			=> $legend_error,
+			'S_LEGEND_ISSUE'			=> $legend_issue,
 			'S_LEGEND_QUERY'			=> $legend_query,
 		));
 
 		// Template vars for header panel
 		$version_data	= $this->functions->version_check();
+
+		// Are the PHP and phpBB versions valid for this extension?
+		$valid = $this->functions->ext_requirements();
 
 		$this->template->assign_vars(array(
 			'DOWNLOAD'			=> (array_key_exists('download', $version_data)) ? '<a class="download" href =' . $version_data['download'] . '>' . $this->language->lang('NEW_VERSION_LINK') . '</a>' : '',
@@ -257,6 +279,9 @@ class admin_controller implements admin_interface
 			'HEAD_DESCRIPTION'	=> $this->language->lang('EXT_SERVICES_CHECK_EXPLAIN'),
 
 			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
+
+			'PHP_VALID' 		=> $valid[0],
+			'PHPBB_VALID' 		=> $valid[1],
 
 			'S_BACK'			=> $back,
 			'S_VERSION_CHECK'	=> (array_key_exists('current', $version_data)) ? $version_data['current'] : false,

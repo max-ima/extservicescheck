@@ -141,6 +141,47 @@ class functions
 	}
 
 	/**
+	 * Check that the reqirements are met for this extension
+	 *
+	 * @return array
+	 * @access public
+	 */
+	public function ext_requirements()
+	{
+		$php_valid = $phpbb_valid = false;
+
+		// Check the PHP version is valid
+		$php_versn = htmlspecialchars_decode($this->get_meta('php'));
+
+		if ($php_versn)
+		{
+			// Get the conditions
+			preg_match('/\d/', $php_versn, $php_pos, PREG_OFFSET_CAPTURE);
+			$php_valid = phpbb_version_compare(PHP_VERSION, substr($php_versn, $php_pos[0][1]), substr($php_versn, 0, $php_pos[0][1]));
+		}
+
+		// Check phpBB versions are valid
+		$phpbb_versn = htmlspecialchars_decode($this->get_meta('phpbb/phpbb'));
+		$phpbb_vers  = explode(',', $phpbb_versn);
+
+		if ($phpbb_vers[0])
+		{
+			// Get the first conditions
+			preg_match('/\d/', $phpbb_vers[0], $phpbb_pos_0, PREG_OFFSET_CAPTURE);
+			$phpbb_valid = phpbb_version_compare(PHPBB_VERSION, substr($phpbb_vers[0], $phpbb_pos_0[0][1]), substr($phpbb_vers[0], 0, $phpbb_pos_0[0][1]));
+
+			if ($phpbb_vers[1] && !$phpbb_valid)
+			{
+				// Get the second conditions
+				preg_match('/\d/', $phpbb_vers[1], $phpbb_pos_1, PREG_OFFSET_CAPTURE);
+				$phpbb_valid = phpbb_version_compare(PHPBB_VERSION, substr($phpbb_vers[0], $phpbb_pos_0[0][1]), substr($phpbb_vers[0], 0, $phpbb_pos_0[0][1]));
+			}
+		}
+
+		return [$php_valid, $phpbb_valid];
+	}
+
+	/**
 	* Get the meta data for the extensions
 	*
 	* @return $extension_meta_data
@@ -148,7 +189,7 @@ class functions
 	*/
 	public function extension_meta_data()
 	{
-		$extension_meta_data = array();
+		$extension_meta_data = [];
 
 		foreach ($this->ext_manager->all_available() as $name => $location)
 		{

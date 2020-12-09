@@ -24,7 +24,7 @@ class yml_formatter
 	protected $functions;
 
 	/**
-	* Constructor for 33extcheck
+	* Constructor for extcheck
 	*
 	* @param \phpbb\language\language					$language	Language object
 	* @param \david63\extservicescheck\core\functions	functions	Functions for the extension
@@ -43,10 +43,12 @@ class yml_formatter
 	* @return null
 	* @access public
 	*/
-	public function yaml_format($original_file)
+	public function yaml_format($original_file, $yml_file)
 	{
 		// Add the language file
 		$this->language->add_lang('acp_extservicescheck', $this->functions->get_ext_namespace());
+
+		$public = '<br>    _defaults:<br>        public: true<br>';
 
 		$formatted_file		= '';
 		$unformatted_file	= fopen($original_file, "r");
@@ -107,6 +109,11 @@ class yml_formatter
 					$formatted_file .= $line;
 				}
 			}
+			if ($yml_file == 'services.yml' && !strstr($original_file, 'public:'))
+			{
+				$formatted_file .= '<span class="compare-highlight">' . $public . '</span>';
+			}
+
 			fclose($unformatted_file);
 
 			return $formatted_file;
