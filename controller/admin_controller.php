@@ -257,6 +257,7 @@ class admin_controller
 			'FILE_QUERY_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/query_file.png" /> ' . $this->language->lang('FILE_QUERY_EXPLAIN'),
 
 			'ISSUE_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/issue.png" /> ' . $this->language->lang('ISSUE_EXPLAIN'),
+			'ISSUE_OPEN_EXPLAIN'		=> '<img src="' . $this->ext_images_path . '/issue_file.png" /> ' . $this->language->lang('ISSUE_OPEN_EXPLAIN'),
 
 			'OK_EXPLAIN'				=> '<img src="' . $this->ext_images_path . '/ok.png" /> ' . $this->language->lang('OK_EXPLAIN'),
 

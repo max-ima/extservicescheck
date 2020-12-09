@@ -13,6 +13,7 @@
 			{% endif %}
 			{% if S_LEGEND_ISSUE %}
 				{{ ISSUE_EXPLAIN }}<br>
+				{{ ISSUE_OPEN_EXPLAIN }}<br>
 			{% endif %}
 			{% if S_LEGEND_ERROR %}
 				{{ DISABLE_EXPLAIN }}<br>
@@ -70,6 +71,9 @@
 								<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/compare_close.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
 							{% elseif files.STATUS_IMAGE == 'query' %}
 								<img src="{{ EXT_IMAGE_PATH }}/query_file.png" title="{{ lang('ICON_FILE_QUERY') }}" />
+							{% elseif files.STATUS_IMAGE == 'issue' %}
+								<span class="pointer showkey files{{ files.FILE_KEY }}" key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/issue_file.png" title="{{ lang('ICON_FILE_CLOSED') }}" /></span>
+								<span class="pointer showkey file_hide files_open{{ files.FILE_KEY }} " key="{{ files.FILE_KEY }}"><img src="{{ EXT_IMAGE_PATH }}/issue.png" title="{{ lang('ICON_FILE_OPEN') }}" /></span>
 							{% endif %}
 							{{ files.STATUS }}
 							{% if not files.last %}

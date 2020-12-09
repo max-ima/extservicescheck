@@ -70,10 +70,12 @@ $lang = array_merge($lang, array(
 	'ICON_EXTN_OK'					=> 'This extension appers to be correct',
 	'ICON_EXTN_QUERY'				=> 'There is a query with one, or more, files in this extension',
 	'ICON_FILE_CLOSED'				=> 'Click to show files',
+	'ICON_FILE_ISSUE'				=> 'This file has a potential issue',
 	'ICON_FILE_OPEN'				=> 'Click to close files',
 	'ICON_FILE_QUERY'				=> 'There is a query with this file',
 	'INVALID_CHRACTERS'				=> 'The namespace <em>%s</em> contains invalid characters',
 	'ISSUE_EXPLAIN'					=> 'Indicates that this extension may have a potential problem in a future version.',
+	'ISSUE_OPEN_EXPLAIN'			=> 'Clicking this icon will show the potential issue with this file.',
 
 	'LEGEND'						=> 'Legend',
 
