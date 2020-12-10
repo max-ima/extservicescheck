@@ -55,7 +55,9 @@
 							<img src="{{ EXT_IMAGE_PATH }}/ok.png" title="{{ lang('ICON_EXTN_OK') }}" />
 						{% endif %}
 					</div>
-					<div class="table-body-cell-bold">{{ row.DISPLAY_NAME }}</div>
+					<div class="table-body-cell-bold tooltips">{{ row.DISPLAY_NAME }}
+						<span class="tooltipstext">{{ row.META_NAME }}</span>
+					</div>
 					<div class="table-body-cell-narrow">{{ row.VENDOR }}</div>
 					<div class="table-body-cell-narrow">{{ row.VERSION }}</div>
 					<div class="table-body-cell-narrow">

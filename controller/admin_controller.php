@@ -103,6 +103,8 @@ class admin_controller
 				'EXT_ENABLED'	=> $block_vars['EXT_ENABLED'],
 				'EXT_STATUS'	=> $block_vars['EXT_STATUS'],
 
+				'META_NAME'		=> $block_vars['META_NAME'],
+
 				'U_ACTION' 		=> "{$this->u_action}&amp;disable=disable&amp;ext_name=$ext_name",
 
 				'VENDOR'		=> $vendor,

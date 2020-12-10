@@ -729,3 +729,44 @@ p.disable-ext-message {
 	color: #666666;
 	font-size: 1.5em;
 }
+
+
+/* ---------
+* tooltips
+--------- */
+.tooltips {
+ 	position: relative;
+}
+
+.tooltips .tooltipstext {
+    visibility: hidden;
+    width: auto;
+    background-color: #1E63D2;
+    color: #FFFFFF;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 90%;
+    left: 50%;
+    margin-left: -90px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding: 5px 5px 5px 5px;
+}
+
+.tooltips .tooltipstext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555555 transparent transparent transparent;
+}
+
+.tooltips:hover .tooltipstext {
+    visibility: visible;
+    opacity: 1;
+}
