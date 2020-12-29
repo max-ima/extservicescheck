@@ -2,11 +2,12 @@
 
 Checks the syntax of the .yml files in extensions.
 
-[![Build Status](https://travis-ci.com/david63/extservicescheck.svg?branch=master)](https://travis-ci.com/david63/extservicescheck)
+[![Build Status](https://github.com/david63/extservicescheck/workflows/Tests/badge.svg)](https://github.com/phpbb-extensions/david63/extservicescheck)
 [![License](https://poser.pugx.org/david63/extservicescheck/license)](https://packagist.org/packages/david63/extservicescheck)
 [![Latest Stable Version](https://poser.pugx.org/david63/extservicescheck/v/stable)](https://packagist.org/packages/david63/extservicescheck)
 [![Latest Unstable Version](https://poser.pugx.org/david63/extservicescheck/v/unstable)](https://packagist.org/packages/david63/extservicescheck)
 [![Total Downloads](https://poser.pugx.org/david63/extservicescheck/downloads)](https://packagist.org/packages/david63/extservicescheck)
+[![codecov](https://codecov.io/gh/david63/extservicescheck/branch/master/graph/badge.svg?token=D2500PgRex)](https://codecov.io/gh/david63/extservicescheck)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/75aea1a674124837815c339c79937c62)](https://www.codacy.com/manual/david63/extservicescheck?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=david63/extservicescheck&amp;utm_campaign=Badge_Grade)
 
  [![Compatible](https://img.shields.io/badge/compatible-phpBB:3.2.x-blue.svg)](https://shields.io/)

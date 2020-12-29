@@ -473,6 +473,10 @@ Tables
 }
 
 .table-header-cell-narrow {
+	width: 200px;
+}
+
+table-header-cell-very-narrow {
 	width: 100px;
 }
 
