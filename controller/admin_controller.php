@@ -17,19 +17,19 @@ use david63\extservicescheck\core\yml_formatter;
 
 class admin_controller
 {
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \david63\extservicescheck\core\functions */
+	/** @var functions */
 	protected $functions;
 
-	/** @var \david63\extservicescheck\core\yml_formatter */
+	/** @var yml_formatter */
 	protected $yml_formatter;
 
 	/** @var string */
@@ -41,12 +41,12 @@ class admin_controller
 	/**
 	* Constructor for admin_controller
 	*
-	* @param \phpbb\request\request							$request			Request object
-	* @param \phpbb\template\template						$template			Template object
-	* @param \phpbb\language\language						$language			Language object
-	* @param \david63\extservicescheck\core\functions		functions			Functions for the extension
-	* @param \david63\extservicescheck\core\yml_formatter	yml_formatter		yml_formatter for the extension
-	* @param string											$ext_images_path	Path to this extension's images
+	* @param request		$request			Request object
+	* @param template		$template			Template object
+	* @param language		$language			Language object
+	* @param functions		$functions			Functions for the extension
+	* @param yml_formatter	$yml_formatter		yml_formatter for the extension
+	* @param string			$ext_images_path	Path to this extension's images
 	*
 	* @return \david63\extservicescheck\controller\admin_controller
 	* @access public

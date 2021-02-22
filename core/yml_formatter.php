@@ -17,17 +17,17 @@ use david63\extservicescheck\core\functions;
 */
 class yml_formatter
 {
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \david63\extservicescheck\core\functions */
+	/** @var functions */
 	protected $functions;
 
 	/**
 	* Constructor for extcheck
 	*
-	* @param \phpbb\language\language					$language	Language object
-	* @param \david63\extservicescheck\core\functions	functions	Functions for the extension
+	* @param language	$language	Language object
+	* @param functions	$functions	Functions for the extension
 	*
 	* @access public
 	*/

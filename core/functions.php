@@ -20,25 +20,25 @@ use phpbb\exception\version_check_exception;
 */
 class functions
 {
-	/** @var \phpbb\extension\manager */
+	/** @var manager */
 	protected $phpbb_extension_manager;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\log\log */
+	/** @var log */
 	protected $log;
 
 	/**
 	* Constructor for functions
 	*
-	* @param \phpbb\extension\manager		$phpbb_extension_manager	Extension manager
-	* @param \phpbb\user					$user						User object
-	* @param \phpbb\language\language		$language					Language object
-	* @param \phpbb\log\log					$log						Log object
+	* @param manager		$phpbb_extension_manager	Extension manager
+	* @param user			$user						User object
+	* @param language		$language					Language object
+	* @param log			$log						Log object
 	*
 	* @access public
 	*/
